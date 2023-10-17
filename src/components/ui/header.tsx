@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import {
   Home,
   ListOrdered,
@@ -15,12 +16,24 @@ import { Sheet, SheetContent, SheetHeader, SheetTrigger } from './sheet'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { Avatar, AvatarFallback, AvatarImage } from './avatar'
 import { Separator } from './separator'
+import { toast } from './use-toast'
+import { ToastAction } from './toast'
 
 export function Header() {
   const { status, data } = useSession()
 
+  // useEffect(() => {
+  //   if (status === 'authenticated') {
+  //     toast({
+  //       title: 'Sucesso ao entrar.',
+  //       description: 'Você entrou usando sua conta Google.',
+  //       action: <ToastAction altText="ok">Ok</ToastAction>,
+  //     })
+  //   }
+  // }, [status])
+
   const handleLoginClick = async () => {
-    await signIn()
+    await signIn('google')
   }
 
   const handleLogoutClick = async () => {

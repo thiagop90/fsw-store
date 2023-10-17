@@ -3,6 +3,7 @@ import { Gabarito } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/ui/header'
 import { AuthProvider } from '@/providers/auth'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Gabarito({ subsets: ['latin'] })
 
@@ -22,6 +23,7 @@ export default function RootLayout({
         <AuthProvider>
           <Header />
           {children}
+          <Toaster />
         </AuthProvider>
       </body>
     </html>
