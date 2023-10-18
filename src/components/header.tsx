@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   Home,
   ListOrdered,
@@ -12,25 +12,23 @@ import {
 } from 'lucide-react'
 import { Button } from './ui/button'
 import { Card } from './ui/card'
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from './ui/sheet'
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from './ui/sheet'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Separator } from './ui/separator'
-import { toast } from './ui/use-toast'
-import { ToastAction } from './ui/toast'
+import { usePathname, useRouter } from 'next/navigation'
+import { cn } from '@/lib/utils'
 
 export function Header() {
   const { status, data } = useSession()
-
-  // useEffect(() => {
-  //   if (status === 'authenticated') {
-  //     toast({
-  //       title: 'Sucesso ao entrar.',
-  //       description: 'Você entrou usando sua conta Google.',
-  //       action: <ToastAction altText="ok">Ok</ToastAction>,
-  //     })
-  //   }
-  // }, [status])
+  const router = useRouter()
+  const pathname = usePathname()
 
   const handleLoginClick = async () => {
     await signIn('google')
@@ -92,23 +90,45 @@ export function Header() {
                 Fazer Login
               </Button>
             )}
+            {status === 'loading' && (
+              <Card className="h-[130px] w-full animate-pulse bg-accent" />
+            )}
 
             <Separator className="my-3" />
 
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <Home className="h-4 w-4" />
-              Inicio
-            </Button>
+            <SheetClose asChild>
+              <Button
+                onClick={() => {
+                  router.push('/')
+                }}
+                variant="outline"
+                className={cn('w-full justify-start gap-2', {
+                  'pointer-events-none bg-primary': pathname === '/',
+                })}
+              >
+                <Home className="h-4 w-4" />
+                Inicio
+              </Button>
+            </SheetClose>
 
             <Button variant="outline" className="w-full justify-start gap-2">
               <Percent className="h-4 w-4" />
               Ofertas
             </Button>
-
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <ListOrdered className="h-4 w-4" />
-              Catálogo
-            </Button>
+            <SheetClose asChild>
+              <Button
+                onClick={() => {
+                  router.push('/catalog')
+                }}
+                variant="outline"
+                className={cn('w-full justify-start gap-2', {
+                  'pointer-events-none bg-primary': pathname === '/catalog',
+                })}
+              >
+                <ListOrdered className="h-4 w-4" />
+                Catálogo
+              </Button>
+            </SheetClose>
           </div>
         </SheetContent>
       </Sheet>
