@@ -44,15 +44,15 @@ export function ProductItem({ product }: ProductItemProps) {
       </div>
 
       <div>
-        <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm ">
+        <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
           {product.name}
         </p>
 
         <div className="flex items-center gap-2">
           {product.discountPercentage > 0 ? (
             <>
-              <p className="font-semibold">{formattedTotalPrice}</p>
-              <p className="text-sm text-muted-foreground line-through">
+              <p className="font-bold">{formattedTotalPrice}</p>
+              <p className="text-xs text-muted-foreground line-through">
                 {formattedBasePrice}
               </p>
             </>
