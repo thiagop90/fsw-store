@@ -8,6 +8,19 @@ type ProductItemProps = {
 }
 
 export function ProductItem({ product }: ProductItemProps) {
+  const formattedBasePrice = Number(product.basePrice).toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  })
+
+  const formattedTotalPrice = Number(product.totalPrice).toLocaleString(
+    'pt-BR',
+    {
+      style: 'currency',
+      currency: 'BRL',
+    },
+  )
+
   return (
     <div className="flex max-w-[156px] flex-col gap-4">
       <div className="relative flex h-[170px] w-[156px] items-center justify-center rounded-lg bg-accent">
@@ -30,7 +43,7 @@ export function ProductItem({ product }: ProductItemProps) {
         )}
       </div>
 
-      <div className="flex flex-col gap-1">
+      <div>
         <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm ">
           {product.name}
         </p>
@@ -38,17 +51,13 @@ export function ProductItem({ product }: ProductItemProps) {
         <div className="flex items-center gap-2">
           {product.discountPercentage > 0 ? (
             <>
-              <p className="font-semibold">
-                R$ {product.totalPrice.toFixed(2)}
-              </p>
-              <p className="text-xs line-through opacity-75">
-                R$ {Number(product.basePrice).toFixed(2)}
+              <p className="font-semibold">{formattedTotalPrice}</p>
+              <p className="text-sm text-muted-foreground line-through">
+                {formattedBasePrice}
               </p>
             </>
           ) : (
-            <p className="text-sm font-semibold">
-              R$ {product.basePrice.toFixed(2)}
-            </p>
+            <p className="text-sm font-semibold">{formattedBasePrice}</p>
           )}
         </div>
       </div>
