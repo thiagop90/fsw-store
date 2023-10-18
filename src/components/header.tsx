@@ -10,14 +10,14 @@ import {
   Percent,
   ShoppingCart,
 } from 'lucide-react'
-import { Button } from './button'
-import { Card } from './card'
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from './sheet'
+import { Button } from './ui/button'
+import { Card } from './ui/card'
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from './ui/sheet'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { Avatar, AvatarFallback, AvatarImage } from './avatar'
-import { Separator } from './separator'
-import { toast } from './use-toast'
-import { ToastAction } from './toast'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { Separator } from './ui/separator'
+import { toast } from './ui/use-toast'
+import { ToastAction } from './ui/toast'
 
 export function Header() {
   const { status, data } = useSession()

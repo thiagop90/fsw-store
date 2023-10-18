@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Gabarito } from 'next/font/google'
 import './globals.css'
-import { Header } from '@/components/ui/header'
+import { Header } from '@/components/header'
 import { AuthProvider } from '@/providers/auth'
 import { Toaster } from '@/components/ui/toaster'
 
