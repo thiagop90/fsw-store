@@ -8,6 +8,8 @@ export function PromoBanner({ alt, ...props }: ImageProps) {
       className="h-auto w-full px-5"
       sizes="100vw"
       alt={alt}
+      priority
+      quality={100}
       {...props}
     />
   )

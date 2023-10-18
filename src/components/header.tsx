@@ -41,7 +41,7 @@ export function Header() {
   }
 
   return (
-    <header className="flex items-center justify-between border-b p-[1.875rem]">
+    <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between border-b bg-background p-5">
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon">
