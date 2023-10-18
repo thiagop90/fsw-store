@@ -24,6 +24,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Separator } from './ui/separator'
 import { usePathname, useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import Link from 'next/link'
 
 export function Header() {
   const { status, data } = useSession()
@@ -133,9 +134,9 @@ export function Header() {
         </SheetContent>
       </Sheet>
 
-      <h1 className="text-lg font-semibold">
+      <Link href="/" className="text-lg font-semibold">
         <span className="text-primary">FSW</span> Store
-      </h1>
+      </Link>
 
       <Button variant="outline" size="icon">
         <ShoppingCart className="h-5 w-5" />
