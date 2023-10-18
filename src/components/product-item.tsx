@@ -57,7 +57,7 @@ export function ProductItem({ product }: ProductItemProps) {
               </p>
             </>
           ) : (
-            <p className="text-sm font-semibold">{formattedBasePrice}</p>
+            <p className="font-semibold">{formattedBasePrice}</p>
           )}
         </div>
       </div>
