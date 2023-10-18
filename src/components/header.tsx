@@ -22,13 +22,12 @@ import {
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Separator } from './ui/separator'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 
 export function Header() {
   const { status, data } = useSession()
-  const router = useRouter()
   const pathname = usePathname()
 
   const handleLoginClick = async () => {
@@ -98,18 +97,18 @@ export function Header() {
             <Separator className="my-3" />
 
             <SheetClose asChild>
-              <Button
-                onClick={() => {
-                  router.push('/')
-                }}
-                variant="outline"
-                className={cn('w-full justify-start gap-2', {
-                  'pointer-events-none bg-primary': pathname === '/',
-                })}
+              <Link
+                href="/"
+                className={cn(
+                  'flex w-full items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium',
+                  {
+                    'pointer-events-none bg-primary': pathname === '/',
+                  },
+                )}
               >
                 <Home className="h-4 w-4" />
-                Inicio
-              </Button>
+                Início
+              </Link>
             </SheetClose>
 
             <Button variant="outline" className="w-full justify-start gap-2">
@@ -117,18 +116,18 @@ export function Header() {
               Ofertas
             </Button>
             <SheetClose asChild>
-              <Button
-                onClick={() => {
-                  router.push('/catalog')
-                }}
-                variant="outline"
-                className={cn('w-full justify-start gap-2', {
-                  'pointer-events-none bg-primary': pathname === '/catalog',
-                })}
+              <Link
+                href="/catalog"
+                className={cn(
+                  'flex w-full items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium',
+                  {
+                    'pointer-events-none bg-primary': pathname === '/catalog',
+                  },
+                )}
               >
                 <ListOrdered className="h-4 w-4" />
                 Catálogo
-              </Button>
+              </Link>
             </SheetClose>
           </div>
         </SheetContent>
