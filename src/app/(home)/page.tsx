@@ -57,7 +57,7 @@ export default async function Home() {
 
       <PromoBanner
         src="/banner-home-03.png"
-        alt="Até 55% de desconto em mouses!"
+        alt="Até 20% de desconto em fones!"
       />
 
       <div>
