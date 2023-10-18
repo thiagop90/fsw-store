@@ -4,6 +4,7 @@ import './globals.css'
 import { Header } from '@/components/header'
 import { AuthProvider } from '@/providers/auth'
 import { Toaster } from '@/components/ui/toaster'
+import { Footer } from '@/components/footer'
 
 const inter = Gabarito({ subsets: ['latin'] })
 
@@ -24,6 +25,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Toaster />
+          <Footer />
         </AuthProvider>
       </body>
     </html>
