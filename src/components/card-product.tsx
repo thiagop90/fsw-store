@@ -50,7 +50,7 @@ export function CardProduct({ product }: ProductItemProps) {
         className="flex h-full w-full flex-col"
         href={`/product/${product.slug}`}
       >
-        <div className="relative flex aspect-square items-center justify-center p-8 md:p-10 lg:p-12">
+        <div className="relative flex aspect-square items-center justify-center overflow-hidden p-8 md:p-10 lg:p-12">
           {!imageLoaded && (
             <div className="absolute">
               <Loader className="animate-spin text-primary" />
