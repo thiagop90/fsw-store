@@ -17,8 +17,8 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'category-item-gradient':
-          'linear-gradient(45deg, #5033C3 0%, rgba(80, 51, 195, 0.20) 100%)',
+        'linear-custom':
+          'linear-gradient(to left, #0f0f0f 20%, rgba(33, 33, 33, 0) 80%)',
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -73,6 +73,9 @@ module.exports = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      fontFamily: {
+        'general-sans': ['var(--font-general-sans)'],
       },
     },
   },
