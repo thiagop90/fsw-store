@@ -12,7 +12,7 @@ export function CategoryItem({ category }: CategoryItemProps) {
       href={`/category/${category.slug}`}
       className="flex flex-col overflow-hidden rounded-lg"
     >
-      <div className="flex h-[150px] w-full items-center justify-center bg-category-item-gradient">
+      <div className="bg-category-item-gradient flex h-[150px] w-full items-center justify-center">
         <Image
           src={category.imageUrl}
           alt={category.name}
