@@ -16,7 +16,7 @@ type ProductListProps = {
   products: Product[]
 }
 
-export function ProductContainer({ products }: ProductListProps) {
+export function ProductSwiper({ products }: ProductListProps) {
   return (
     <Swiper
       className="my-swiper-1"

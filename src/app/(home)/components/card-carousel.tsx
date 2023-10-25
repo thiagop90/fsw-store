@@ -1,13 +1,13 @@
 'use client'
 
-import { ProductWithTotalPrice } from '@/helpers/products'
-import Image from 'next/image'
+import { ProductWithTotalPrice, formatCurrency } from '@/helpers/products'
 import { Badge } from '@/components/ui/badge'
-import { ArrowDown, ShoppingBasket, ShoppingCart } from 'lucide-react'
+import { ArrowDown, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
-import { useCartStore } from '@/store/cart'
+import { useCartStore } from '@/lib/cart'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
+import { ContainerImage } from '@/components/container-image'
 
 type ProductItemProps = {
   product: ProductWithTotalPrice
@@ -17,42 +17,24 @@ export function CardCarousel({ product }: ProductItemProps) {
   const { addToCart } = useCartStore()
   const { toast } = useToast()
 
-  const formattedBasePrice = Number(product.basePrice).toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  })
-
-  const formattedTotalPrice = Number(product.totalPrice).toLocaleString(
-    'pt-BR',
-    {
-      style: 'currency',
-      currency: 'BRL',
-    },
-  )
+  const formattedBasePrice = formatCurrency(Number(product.basePrice))
+  const formattedTotalPrice = formatCurrency(product.totalPrice)
 
   const handleAddToCart = () => {
     addToCart(product)
     toast({
-      title: 'teste',
-      description: 'teste',
+      title: 'Produto adicionado ao carrinho',
+      description: `${product.name} foi adicionado.`,
     })
   }
 
   return (
     <li className="group relative aspect-square h-[30vh] max-h-[275px] w-full flex-none overflow-hidden rounded-lg border bg-card hover:border-primary ">
       <Link
-        className="group flex h-full w-full items-center justify-center "
+        className="group flex h-full w-full items-center justify-center p-10"
         href={`/product/${product.slug}`}
       >
-        <Image
-          src={product.imageUrls[0]}
-          width={0}
-          height={0}
-          sizes="100vw"
-          className="relative h-full max-h-[70%] w-full max-w-[80%] object-contain transition duration-300 group-hover:scale-105"
-          alt={product.name}
-          quality={100}
-        />
+        <ContainerImage product={product} />
       </Link>
       <div className="absolute inset-x-4 top-4">
         <div className="flex ">

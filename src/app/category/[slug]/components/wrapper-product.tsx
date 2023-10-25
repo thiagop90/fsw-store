@@ -1,6 +1,6 @@
 'use client'
 
-import { CardProduct } from '@/components/card-product'
+import { CardProduct } from '@/app/category/[slug]/components/card-product'
 import {
   DropdownMenu,
   DropdownMenuContent,

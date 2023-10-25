@@ -8,7 +8,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { useCartStore } from '@/store/cart'
+import { useCartStore } from '@/lib/cart'
 import { ShoppingCart } from 'lucide-react'
 import { CartProduct } from './cart-product'
 import { ScrollArea } from '../ui/scroll-area'

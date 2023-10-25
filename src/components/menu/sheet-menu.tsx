@@ -1,6 +1,6 @@
 'use client'
 
-import { Home, ListOrdered, MenuIcon, Percent } from 'lucide-react'
+import { Home, ListOrdered, MenuIcon, Percent, X } from 'lucide-react'
 import { Button } from '../ui/button'
 import {
   Sheet,
@@ -14,15 +14,33 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { StatusAuthenticated } from './status-authenticated'
+import { useState } from 'react'
+import { useCartStore } from '@/lib/cart'
 
 export function SheetMenu() {
   const pathname = usePathname()
+  const { isOpen } = useCartStore()
 
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <Button size="icon" variant="outline">
-          <MenuIcon className="h-5 w-5" />
+      <SheetTrigger>
+        <Button size="icon" variant="outline" className="pointer-events-auto">
+          <MenuIcon
+            className={cn(
+              'h-5 w-5 rotate-0 scale-100 transition-all duration-300',
+              {
+                '-rotate-90 scale-0': !!isOpen,
+              },
+            )}
+          />
+          <X
+            className={cn(
+              'absolute h-5 w-5 rotate-90 scale-0 transition-all duration-300',
+              {
+                'rotate-0 scale-100': isOpen,
+              },
+            )}
+          />
         </Button>
       </SheetTrigger>
 

@@ -7,11 +7,14 @@ import {
   Square,
 } from 'lucide-react'
 
+const className = 'h-10 w-10 group-hover:animate-wobble-hor-bottom'
+const strokeWidth = '1'
+
 export const categoryIcon = {
-  keyboards: <Keyboard className="h-4 w-4" />,
-  monitors: <Monitor className="h-4 w-4" />,
-  headphones: <Headphones className="h-4 w-4" />,
-  mousepads: <Square className="h-4 w-4" />,
-  speakers: <Speaker className="h-4 w-4" />,
-  mouses: <Mouse className="h-4 w-4" />,
+  keyboards: <Keyboard strokeWidth={strokeWidth} className={className} />,
+  monitors: <Monitor strokeWidth={strokeWidth} className={className} />,
+  headphones: <Headphones strokeWidth={strokeWidth} className={className} />,
+  mousepads: <Square strokeWidth={strokeWidth} className={className} />,
+  speakers: <Speaker strokeWidth={strokeWidth} className={className} />,
+  mouses: <Mouse strokeWidth={strokeWidth} className={className} />,
 }

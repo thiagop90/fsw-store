@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { SheetCart } from './cart/sheet-cart'
-import { SheetMenu } from './layout/sheet-menu'
+import { SheetMenu } from './menu/sheet-menu'
 import { Hydrate } from './hydrate'
 
 export function Header() {
   return (
-    <header className="fixed top-0 z-50 w-full border-b bg-card p-6">
+    <header className="fixed top-0 z-40 w-full border-b bg-card p-6">
       <div className="mx-auto flex max-w-screen-xl items-center justify-between">
         <div className="flex items-center">
           <SheetMenu />

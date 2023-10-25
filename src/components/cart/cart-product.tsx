@@ -1,11 +1,11 @@
 'use client'
 
-import { CartItem, useCartStore } from '@/store/cart'
+import { CartItem, useCartStore } from '@/lib/cart'
 import { Minus, Plus, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SheetTrigger } from '../ui/sheet'
-import { formatCurrency, getFormattedValues } from '@/helpers/products'
+import { formatCurrency } from '@/helpers/products'
 
 type ProductCartProps = {
   item: CartItem
@@ -13,11 +13,12 @@ type ProductCartProps = {
 
 export function CartProduct({ item }: ProductCartProps) {
   const { addToCart, removeFromCart } = useCartStore()
-  const {
-    formattedBasePrice,
-    formattedTotalPrice,
-    formattedTotalPriceWithQuantity,
-  } = getFormattedValues(item)
+
+  const formattedBasePrice = formatCurrency(Number(item.basePrice))
+  const formattedTotalPrice = formatCurrency(item.totalPrice)
+  const formattedTotalPriceWithQuantity = formatCurrency(
+    item.totalPrice * item.count,
+  )
 
   return (
     <li className="flex justify-between border-b py-4">

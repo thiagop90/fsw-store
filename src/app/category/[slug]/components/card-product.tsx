@@ -1,14 +1,13 @@
 'use client'
 
-import { ProductWithTotalPrice } from '@/helpers/products'
-import Image from 'next/image'
-import { Badge } from './ui/badge'
-import { ArrowDown, Loader, Loader2, ShoppingCart } from 'lucide-react'
+import { ProductWithTotalPrice, formatCurrency } from '@/helpers/products'
+import { Badge } from '@/components/ui/badge'
+import { ArrowDown, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
-import { useCartStore } from '@/store/cart'
-import { Button } from './ui/button'
-import { useState } from 'react'
-import { useToast } from './ui/use-toast'
+import { useCartStore } from '@/lib/cart'
+import { Button } from '@/components/ui/button'
+import { useToast } from '@/components/ui/use-toast'
+import { ContainerImage } from '@/components/container-image'
 
 type ProductItemProps = {
   product: ProductWithTotalPrice
@@ -16,25 +15,10 @@ type ProductItemProps = {
 
 export function CardProduct({ product }: ProductItemProps) {
   const { addToCart } = useCartStore()
-  const [imageLoaded, setImageLoaded] = useState(false)
   const { toast } = useToast()
 
-  const formattedBasePrice = Number(product.basePrice).toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  })
-
-  const formattedTotalPrice = Number(product.totalPrice).toLocaleString(
-    'pt-BR',
-    {
-      style: 'currency',
-      currency: 'BRL',
-    },
-  )
-
-  const handleImageLoad = () => {
-    setImageLoaded(true)
-  }
+  const formattedBasePrice = formatCurrency(Number(product.basePrice))
+  const formattedTotalPrice = formatCurrency(product.totalPrice)
 
   const handleAddToCart = () => {
     addToCart(product)
@@ -51,20 +35,7 @@ export function CardProduct({ product }: ProductItemProps) {
         href={`/product/${product.slug}`}
       >
         <div className="relative flex aspect-square items-center justify-center overflow-hidden p-8 md:p-10 lg:p-12">
-          {!imageLoaded && (
-            <div className="absolute">
-              <Loader className="animate-spin text-primary" />
-            </div>
-          )}
-          <Image
-            src={product.imageUrls[0]}
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="z-10 h-full w-full object-contain transition duration-300 group-hover:scale-105"
-            alt={product.name}
-            onLoad={handleImageLoad}
-          />
+          <ContainerImage product={product} />
         </div>
         {product.discountPercentage > 0 && (
           <Badge className="absolute left-2 top-2 px-1.5 text-sm">

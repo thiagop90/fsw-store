@@ -15,6 +15,8 @@ type CartStore = {
   addToCart: (product: ProductWithTotalPrice) => void
   removeFromCart: (productId: string) => void
   removeAll: () => void
+  isOpen: boolean
+  toggleCart: () => void
 }
 
 export const useCartStore = create<CartStore>()(
@@ -53,6 +55,14 @@ export const useCartStore = create<CartStore>()(
       },
 
       removeAll: () => set({ cart: [] }),
+
+      isOpen: false,
+      toggleCart: () => {
+        set((state) => ({
+          ...state,
+          isOpen: !state.isOpen,
+        }))
+      },
     }),
 
     { name: 'cart-items' },

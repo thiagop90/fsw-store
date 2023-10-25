@@ -1,4 +1,3 @@
-import { CartItem } from '@/store/cart'
 import { Product } from '@prisma/client'
 
 export type ProductWithTotalPrice = Product & {
@@ -35,18 +34,4 @@ export const formatCurrency = (value: number): string => {
     style: 'currency',
     currency: 'BRL',
   })
-}
-
-export const getFormattedValues = (item: CartItem): FormattedValues => {
-  const formattedBasePrice = formatCurrency(Number(item.basePrice))
-  const formattedTotalPrice = formatCurrency(item.totalPrice)
-  const formattedTotalPriceWithQuantity = formatCurrency(
-    item.totalPrice * item.count,
-  )
-
-  return {
-    formattedBasePrice,
-    formattedTotalPrice,
-    formattedTotalPriceWithQuantity,
-  }
 }
