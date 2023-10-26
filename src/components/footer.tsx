@@ -9,22 +9,22 @@ export function Footer() {
         <p>© 2023 FSW Store, Inc. All rights reserved.</p>
         <div className="flex gap-3">
           <Link target="_blank" href="https://github.com/thiagop90">
-            <Button
+            {/* <Button
               size="icon"
               variant="outline"
               className="hover:text-primary"
             >
-              <Github className="h-6 w-6" strokeWidth="1.5" />
-            </Button>
+            </Button> */}
+            <Github className="h-6 w-6" strokeWidth="1.5" />
           </Link>
           <Link target="_blank" href="https://linkedin.com/in/psthiago">
-            <Button
+            {/* <Button
               size="icon"
               variant="outline"
               className="hover:text-primary"
             >
-              <Linkedin className="h-6 w-6" strokeWidth="1.5" />
-            </Button>
+            </Button> */}
+            <Linkedin className="h-6 w-6" strokeWidth="1.5" />
           </Link>
         </div>
       </div>

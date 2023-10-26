@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import plugin from 'tailwindcss/plugin'
+
 module.exports = {
   darkMode: ['class'],
   content: [
@@ -17,8 +19,8 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'linear-custom':
-          'linear-gradient(to left, #0f0f0f 20%, rgba(33, 33, 33, 0) 80%)',
+        'linear-progress':
+          'linear-gradient(to left, rgb(47, 112, 193), rgb(116, 97, 195))',
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -69,26 +71,33 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: 0 },
         },
-        'wobble-hor-bottom': {
-          '0%, 100%': {
-            transform: 'translateY(0%) origin-[50%_50%]',
-          },
-          '15%': { transform: 'translateX(-2px) rotate(-2deg)' },
-          '30%': { transform: 'translateX(2px) rotate(2deg)' },
-          '45%': { transform: 'translateX(-2px) rotate(-2deg)' },
-          '60%': { transform: 'translateX(4px) rotate(2.4deg)' },
-          '75%': { transform: 'translateX(-3px) rotate(-1.2deg)' },
+        wiggle: {
+          '25%': { transform: 'rotate(4deg)' },
+          '50%': { transform: 'rotate(-4deg)' },
+          '75%': { transform: 'rotate(4deg)' },
         },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'wobble-hor-bottom': 'wobble-hor-bottom 1s both',
+        wiggle: 'wiggle 0.5s ease-in-out',
       },
       fontFamily: {
         'general-sans': ['var(--font-general-sans)'],
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.backface-visible': {
+          'backface-visibility': 'visible',
+        },
+        '.backface-hidden': {
+          'backface-visibility': 'hidden',
+        },
+      })
+    }),
+  ],
 }

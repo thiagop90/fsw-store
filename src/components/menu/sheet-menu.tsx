@@ -23,8 +23,8 @@ export function SheetMenu() {
 
   return (
     <Sheet>
-      <SheetTrigger>
-        <Button size="icon" variant="outline" className="pointer-events-auto">
+      <SheetTrigger className="inline-flex h-10 w-10 items-center justify-center rounded-md border bg-background transition-colors hover:bg-accent hover:text-accent-foreground">
+        <div className="pointer-events-auto">
           <MenuIcon
             className={cn(
               'h-5 w-5 rotate-0 scale-100 transition-all duration-300',
@@ -41,7 +41,7 @@ export function SheetMenu() {
               },
             )}
           />
-        </Button>
+        </div>
       </SheetTrigger>
 
       <SheetContent side="left">

@@ -7,7 +7,7 @@ import {
   Square,
 } from 'lucide-react'
 
-const className = 'h-10 w-10 group-hover:animate-wobble-hor-bottom'
+const className = 'h-10 w-10 group-hover:animate-wiggle'
 const strokeWidth = '1'
 
 export const categoryIcon = {
