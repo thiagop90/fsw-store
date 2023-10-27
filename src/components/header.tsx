@@ -5,7 +5,7 @@ import { Hydrate } from './hydrate'
 
 export function Header() {
   return (
-    <header className="fixed top-0 z-40 w-full border-b bg-card p-6">
+    <header className="fixed top-0 z-40 w-full border-b bg-card/80 p-6 backdrop-blur-xl">
       <div className="mx-auto flex max-w-screen-xl items-center justify-between">
         <div className="flex items-center">
           <SheetMenu />

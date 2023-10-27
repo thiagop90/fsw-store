@@ -8,7 +8,7 @@ import {
 } from 'lucide-react'
 
 const className = 'h-10 w-10 group-hover:animate-wiggle'
-const strokeWidth = '1'
+const strokeWidth = '1.25'
 
 export const categoryIcon = {
   keyboards: <Keyboard strokeWidth={strokeWidth} className={className} />,

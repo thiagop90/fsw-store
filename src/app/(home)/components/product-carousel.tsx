@@ -1,9 +1,5 @@
 'use client'
 
-// import 'swiper/css'
-// import 'swiper/css/pagination'
-// import 'swiper/css/navigation'
-
 import {
   HTMLAttributes,
   forwardRef,
@@ -18,10 +14,6 @@ import useEmblaCarousel, {
 import { computeProductTotalPrice } from '@/helpers/products'
 import { Product } from '@prisma/client'
 import { CardCarousel } from './card-carousel'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination } from 'swiper/modules'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 type ProductListProps = HTMLAttributes<HTMLDivElement> & {
@@ -30,8 +22,8 @@ type ProductListProps = HTMLAttributes<HTMLDivElement> & {
   progressBar?: boolean
 }
 
-export const ProductSwiper = forwardRef<HTMLDivElement, ProductListProps>(
-  ({ className, products, options, progressBar = false, ...props }) => {
+export const ProductCarousel = forwardRef<HTMLDivElement, ProductListProps>(
+  ({ className, products, options, progressBar = false, ...props }, ref) => {
     const [emblaRef, emblaApi] = useEmblaCarousel(options)
     const [scrollProgress, setScrollProgress] = useState(0)
 
@@ -49,7 +41,7 @@ export const ProductSwiper = forwardRef<HTMLDivElement, ProductListProps>(
     }, [emblaApi, onScroll])
 
     return (
-      <div className={cn('relative -mx-4', className)} {...props}>
+      <div className={cn('relative -mx-4', className)} ref={ref} {...props}>
         <div className="overflow-hidden px-4" ref={emblaRef}>
           <div className="flex touch-pan-y space-x-4 backface-hidden">
             {products.map((product) => (
@@ -74,4 +66,4 @@ export const ProductSwiper = forwardRef<HTMLDivElement, ProductListProps>(
     )
   },
 )
-ProductSwiper.displayName = 'ProductSwiper'
+ProductCarousel.displayName = 'ProductCarousel'

@@ -43,7 +43,7 @@ export function CardCarousel({ product }: ProductItemProps) {
           </p>
 
           {product.discountPercentage > 0 && (
-            <Badge className="ml-2  px-1.5">
+            <Badge className="ml-2 px-1.5">
               <ArrowDown className="h-4 w-4" /> {product.discountPercentage}%
             </Badge>
           )}
