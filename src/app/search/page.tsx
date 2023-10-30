@@ -1,18 +1,18 @@
 import { prismaClient } from '@/lib/prisma'
-import { Metadata } from 'next'
+// import type { Metadata } from 'next'
 import { WrapperProduct } from './components/wrapper-product'
 
 type SearchPageProps = {
   searchParams: { query: string }
 }
 
-export function generateMetaData({
-  searchParams: { query },
-}: SearchPageProps): Metadata {
-  return {
-    title: `Search: ${query} - FSW Store`,
-  }
-}
+// export function generateMetaData({
+//   searchParams: { query },
+// }: SearchPageProps): Metadata {
+//   return {
+//     title: `Search: ${query} - FSW Store`,
+//   }
+// }
 
 export default async function SearchPage({
   searchParams: { query },
