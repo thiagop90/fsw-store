@@ -1,6 +1,6 @@
 'use client'
 
-import { ProductWithTotalPrice, formatCurrency } from '@/helpers/products'
+import { ProductWithTotalPrice, formatCurrency } from '@/lib/products'
 import { Badge } from '@/components/ui/badge'
 import { ArrowDown, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
@@ -13,7 +13,7 @@ type ProductItemProps = {
   product: ProductWithTotalPrice
 }
 
-export function CardProduct({ product }: ProductItemProps) {
+export function ProductCard({ product }: ProductItemProps) {
   const { addToCart } = useCartStore()
   const { toast } = useToast()
 
@@ -29,7 +29,7 @@ export function CardProduct({ product }: ProductItemProps) {
   }
 
   return (
-    <div className="group relative overflow-hidden border-b border-r bg-card">
+    <li className="group relative animate-fadeIn overflow-hidden border-b border-r bg-card transition-opacity">
       <Link
         className="flex h-full w-full flex-col"
         href={`/product/${product.slug}`}
@@ -43,7 +43,7 @@ export function CardProduct({ product }: ProductItemProps) {
           </Badge>
         )}
 
-        <div className="sticky z-20 mx-2 mb-2 flex flex-1 flex-col rounded-md border bg-background/60 p-2 backdrop-blur-sm transition duration-300 group-hover:-translate-y-12">
+        <div className="sticky z-20 mx-2 mb-2 flex flex-1 flex-col rounded-lg border bg-background/60 p-2 backdrop-blur-sm transition duration-300 group-hover:-translate-y-12">
           <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm sm:text-base">
             {product.name}
           </p>
@@ -68,6 +68,6 @@ export function CardProduct({ product }: ProductItemProps) {
           <ShoppingCart className="h-4 w-4" strokeWidth="2.5" />
         </Button>
       </div>
-    </div>
+    </li>
   )
 }

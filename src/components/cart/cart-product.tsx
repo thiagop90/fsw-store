@@ -5,7 +5,7 @@ import { Minus, Plus, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SheetTrigger } from '../ui/sheet'
-import { formatCurrency } from '@/helpers/products'
+import { formatCurrency } from '@/lib/products'
 
 type ProductCartProps = {
   item: CartItem
@@ -24,7 +24,7 @@ export function CartProduct({ item }: ProductCartProps) {
     <li className="flex justify-between border-b py-4">
       <SheetTrigger asChild>
         <Link href={`/product/${item.slug}`} className="flex gap-4 ">
-          <div className="h-20 w-20 cursor-pointer overflow-hidden rounded-md border bg-accent p-1">
+          <div className="h-20 w-20 cursor-pointer overflow-hidden rounded-lg border bg-accent p-1">
             <Image
               src={item.imageUrls[0]}
               alt={item.name}

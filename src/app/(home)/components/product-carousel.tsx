@@ -11,7 +11,7 @@ import useEmblaCarousel, {
   EmblaCarouselType,
   EmblaOptionsType,
 } from 'embla-carousel-react'
-import { computeProductTotalPrice } from '@/helpers/products'
+import { computeProductTotalPrice } from '@/lib/products'
 import { Product } from '@prisma/client'
 import { CardCarousel } from './card-carousel'
 import { cn } from '@/lib/utils'

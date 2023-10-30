@@ -1,5 +1,5 @@
 import { prismaClient } from '@/lib/prisma'
-import { WrapperProduct } from './components/wrapper-product'
+import { WrapperProduct } from '../components/wrapper-product'
 
 type CategoryItemProps = {
   params: {
@@ -22,8 +22,14 @@ export default async function CategoryProducts({ params }: CategoryItemProps) {
   }
 
   return (
-    <div className="-mx-4 max-w-screen-xl sm:mx-auto">
-      <WrapperProduct category={category} products={category.products} />
+    <div>
+      <div className="mb-4 font-medium ">
+        <p className="mb-0.5 text-xl">{category.name}</p>
+        <p className="text-sm text-muted-foreground">
+          {category.products.length} products
+        </p>
+      </div>
+      <WrapperProduct products={category.products} />
     </div>
   )
 }

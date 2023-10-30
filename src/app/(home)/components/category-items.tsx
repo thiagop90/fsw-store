@@ -9,7 +9,7 @@ type CategoryItemProps = {
 export function CategoryItem({ category }: CategoryItemProps) {
   return (
     <Link
-      href={`category/${category.slug}`}
+      href={`search/${category.slug}`}
       className="group flex flex-col items-center justify-center gap-2 rounded-lg border bg-card  py-8 transition hover:border-primary"
     >
       {categoryIcon[category.slug as keyof typeof categoryIcon]}

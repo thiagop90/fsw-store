@@ -1,6 +1,6 @@
 import { prismaClient } from '@/lib/prisma'
 import { ProductImages } from './components/product-images'
-import { formatCurrency } from '@/helpers/products'
+import { formatCurrency } from '@/lib/products'
 import { Badge } from '@/components/ui/badge'
 import { ArrowDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'

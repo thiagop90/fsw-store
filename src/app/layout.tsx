@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Barlow } from 'next/font/google'
 import './globals.css'
-import { Header } from '@/components/header'
+import { Navbar } from '@/components/navbar'
 import { AuthProvider } from '@/app/provider-auth'
 import { Toaster } from '@/components/ui/toaster'
 import { Footer } from '@/components/footer'
@@ -25,8 +25,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className}`}>
         <AuthProvider>
-          <Header />
-          <main className="mt-[5.5rem] min-h-[100svh] px-4">{children}</main>
+          <Navbar />
+          <main className="mt-[4.75rem] min-h-[100svh] px-4">{children}</main>
           <Footer />
           <Toaster />
         </AuthProvider>

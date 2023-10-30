@@ -15,7 +15,7 @@ export function ThumbsButton(props: PropType) {
     <div className="h-20 w-20">
       <button
         onClick={onClick}
-        className={cn('group h-full w-full rounded-md border bg-card p-1', {
+        className={cn('group h-full w-full rounded-lg border bg-card p-1', {
           'border-primary': selected,
         })}
         type="button"

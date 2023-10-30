@@ -76,11 +76,16 @@ module.exports = {
           '50%': { transform: 'rotate(-4deg)' },
           '75%': { transform: 'rotate(4deg)' },
         },
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 100 },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         wiggle: 'wiggle 0.5s ease-in-out',
+        fadeIn: 'fadeIn 0.3s ease-in-out',
       },
       fontFamily: {
         'general-sans': ['var(--font-general-sans)'],
