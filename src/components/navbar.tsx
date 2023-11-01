@@ -24,7 +24,7 @@ export function Navbar() {
           >
             <span className="text-primary">FSW</span> Store
           </Link>
-          <ul className="hidden gap-6  font-medium md:flex md:items-center">
+          <ul className="hidden gap-6 font-medium md:flex md:items-center">
             {links.map((link, index) => (
               <li key={index}>
                 <Link

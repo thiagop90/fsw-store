@@ -38,7 +38,7 @@ export function ProductCard({ product }: ProductItemProps) {
           <ContainerImage product={product} />
         </div>
         {product.discountPercentage > 0 && (
-          <Badge className="absolute left-2 top-2 px-1.5 text-xs">
+          <Badge className="absolute left-2 top-2 z-20 px-1.5 text-xs">
             <ArrowDown className="h-4 w-4" /> {product.discountPercentage}%
           </Badge>
         )}

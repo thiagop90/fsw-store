@@ -15,7 +15,7 @@ export function FilterItem({ href, children }: FilterItemProps) {
   const DynamicTag = active ? 'p' : Link
 
   return (
-    <li>
+    <li className="mt-2">
       <DynamicTag
         className={cn('w-full hover:underline hover:underline-offset-4', {
           'underline underline-offset-4': active,
