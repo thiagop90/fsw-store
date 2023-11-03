@@ -9,7 +9,7 @@ type ProductImagesProps = {
   imageUrls: string[]
 }
 
-export function ProductImages({ imageUrls }: ProductImagesProps) {
+export function CarouselImages({ imageUrls }: ProductImagesProps) {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel()
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel()

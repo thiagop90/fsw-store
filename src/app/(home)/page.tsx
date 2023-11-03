@@ -4,8 +4,7 @@ import { ProductCarousel } from './components/product-carousel'
 import { SectionTitle } from './components/section-title'
 import { EmblaOptionsType } from 'embla-carousel-react'
 
-const OPTIONS: EmblaOptionsType = { align: 'start', dragFree: true }
-const OPTIONS2: EmblaOptionsType = { align: 'start' }
+const OPTIONS: EmblaOptionsType = { dragFree: true }
 
 export default async function Home() {
   const deals = await prismaClient.product.findMany({
@@ -64,6 +63,7 @@ export default async function Home() {
             products={deals}
             options={OPTIONS}
             progressBar
+            autoplay
           />
         </div>
       </div>
@@ -75,16 +75,16 @@ export default async function Home() {
 
       <div>
         <SectionTitle>Mices</SectionTitle>
-        <ProductCarousel products={mices} options={OPTIONS2} />
+        <ProductCarousel products={mices} />
       </div>
 
       <div>
         <SectionTitle>Keyboards</SectionTitle>
-        <ProductCarousel products={keyboards} options={OPTIONS2} />
+        <ProductCarousel products={keyboards} />
       </div>
       <div>
         <SectionTitle>Headsets</SectionTitle>
-        <ProductCarousel products={headsets} options={OPTIONS2} />
+        <ProductCarousel products={headsets} />
       </div>
     </div>
   )

@@ -1,69 +1,136 @@
-import { prismaClient } from '@/lib/prisma'
-// import type { Metadata } from 'next'
+'use client'
+
 import { WrapperProduct } from './components/wrapper-product'
+import { Fragment, useEffect } from 'react'
+import axios from 'axios'
+import { useInfiniteQuery } from 'react-query'
+import { useInView } from 'react-intersection-observer'
+import { Product } from '@prisma/client'
+import { ProductCard } from '@/components/product-card'
+import { computeProductTotalPrice } from '@/lib/products'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Loader } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 
 type SearchPageProps = {
   searchParams: { query: string }
 }
 
-// export function generateMetaData({
+// export const generateMetadata = ({
 //   searchParams: { query },
-// }: SearchPageProps): Metadata {
+// }: SearchPageProps) => {
 //   return {
-//     title: `Search: ${query} - FSW Store`,
+//     title: query ? `Search: ${query}` : 'Search',
 //   }
 // }
 
-export default async function SearchPage({
+export default function SearchPage({
   searchParams: { query },
 }: SearchPageProps) {
-  const products = await prismaClient.product.findMany({
-    where: {
-      OR: [
-        {
-          name: { contains: query, mode: 'insensitive' },
-        },
-        {
-          category: {
-            name: { contains: query, mode: 'insensitive' },
-          },
-        },
-      ],
+  const { ref, inView } = useInView()
+  const search = useSearchParams()
+  const searchQuery = search ? search.get('q') : null
+  const encodedSearchQuery = encodeURI(searchQuery || '')
+
+  const {
+    isLoading,
+    isError,
+    data,
+    isSuccess,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery(
+    'products',
+    async ({ pageParam = '' }) => {
+      const res = await axios.get('/api/products?cursor=' + pageParam)
+      return res.data
     },
-    orderBy: { id: 'desc' },
-    take: 20,
-  })
+    {
+      getNextPageParam: (lastPage) => lastPage.nextId,
+    },
+  )
 
-  if (products.length === 0) {
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage()
+    }
+  }, [inView])
+
+  if (isLoading)
     return (
-      <>
-        <p className="mb-4">
-          There are no products that match{' '}
-          <span className="font-bold">
-            {'"'}
-            {query}
-            {'"'}
-          </span>
-        </p>
-      </>
+      <WrapperProduct>
+        {Array(12)
+          .fill(null)
+          .map((item, index) => (
+            <div
+              key={index}
+              className="flex h-full w-full flex-col gap-2 border-b border-r p-2"
+            >
+              <Skeleton className="aspect-square h-full w-full" />
+              <Skeleton className="h-[86px] w-full" />
+            </div>
+          ))}
+      </WrapperProduct>
     )
-  }
+  if (isError) return <div>Error!</div>
+  // const products = await prismaClient.product.findMany({
+  //   where: {
+  //     OR: [
+  //       {
+  //         name: { contains: query, mode: 'insensitive' },
+  //       },
+  //       {
+  //         category: {
+  //           name: { contains: query, mode: 'insensitive' },
+  //         },
+  //       },
+  //     ],
+  //   },
+  //   orderBy: { id: 'desc' },
+  //   take: 20,
+  // })
 
-  const resultsText = products.length > 1 ? 'results' : 'result'
+  // if (products.length === 0) {
+  //   return (
+  //     <p className="mb-4">
+  //       There are no products that match{' '}
+  //       <span className="font-bold">
+  //         {'"'}
+  //         {query}
+  //         {'"'}
+  //       </span>
+  //     </p>
+  //   )
+  // }
+
+  // const resultsText = products.length > 1 ? 'results' : 'result'
 
   return (
     <>
-      {query && (
-        <p className="mb-4">
-          Showing {products.length} {resultsText} for{' '}
-          <span className="font-bold">
-            {'"'}
-            {query}
-            {'"'}
-          </span>
-        </p>
+      {isSuccess && (
+        <WrapperProduct>
+          {data.pages.map((page) => (
+            <Fragment key={page.nextId ?? 'lastPage'}>
+              {page.products.map((products: Product) => (
+                <ProductCard
+                  key={products.id}
+                  product={computeProductTotalPrice(products)}
+                />
+              ))}
+            </Fragment>
+          ))}
+        </WrapperProduct>
       )}
-      <WrapperProduct products={products} />
+
+      <div className="flex justify-center" ref={ref}>
+        {isFetchingNextPage && (
+          <div className="flex items-center gap-2">
+            <Loader className="animate-spin text-primary" />
+            Loading more products...
+          </div>
+        )}
+      </div>
     </>
   )
 }

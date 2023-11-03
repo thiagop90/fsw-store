@@ -8,6 +8,7 @@ export async function Categories() {
   return (
     <div className="flex flex-col gap-2">
       <div className="hidden md:block">
+        <h3 className="text-sm text-muted-foreground">Categories</h3>
         <FilterItem href="/search">All</FilterItem>
         {categories.map((category) => (
           <FilterItem href={`/search/${category.slug}`} key={category.id}>

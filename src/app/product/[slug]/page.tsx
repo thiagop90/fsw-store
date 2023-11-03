@@ -1,5 +1,5 @@
 import { prismaClient } from '@/lib/prisma'
-import { ProductImages } from './components/product-images'
+import { CarouselImages } from './components/carousel-images'
 import { formatCurrency } from '@/lib/products'
 import { Badge } from '@/components/ui/badge'
 import { ArrowDown } from 'lucide-react'
@@ -29,7 +29,7 @@ export default async function ProductDetailsPage({
   return (
     <div className="mx-auto max-w-screen-xl py-6">
       <div className="flex flex-col overflow-hidden rounded-lg border bg-card p-8">
-        <ProductImages imageUrls={product.imageUrls} />
+        <CarouselImages imageUrls={product.imageUrls} />
         <div className="flex flex-col">
           <h1 className="text-2xl font-medium">{product.name}</h1>
           <div className="mt-2 flex gap-2">

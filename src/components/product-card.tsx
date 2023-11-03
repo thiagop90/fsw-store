@@ -43,7 +43,7 @@ export function ProductCard({ product }: ProductItemProps) {
           </Badge>
         )}
 
-        <div className="sticky z-20 mx-2 mb-2 flex flex-1 flex-col rounded-lg border bg-background/60 p-2 backdrop-blur-sm transition duration-300 group-hover:-translate-y-12">
+        <div className="z-20 mx-2 mb-2 flex flex-1 flex-col rounded-lg border bg-background/80 p-2 transition duration-300 group-hover:-translate-y-12">
           <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm sm:text-base">
             {product.name}
           </p>
