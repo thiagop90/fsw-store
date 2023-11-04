@@ -16,8 +16,8 @@ export default function Loading() {
               key={index}
               className="flex h-full w-full flex-col gap-2 border-b border-r p-2"
             >
-              <Skeleton className="aspect-square h-full w-full" />
-              <Skeleton className="h-[86px] w-full" />
+              <Skeleton className="aspect-square" />
+              <Skeleton className="h-[82px] w-full sm:h-[86px]" />
             </div>
           ))}
       </WrapperProduct>

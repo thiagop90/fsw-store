@@ -1,20 +1,27 @@
 'use client'
 
-import { searchProducts } from '@/lib/actions'
 import { Input } from './ui/input'
 import { Search } from 'lucide-react'
 import { FormEvent, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Button } from './ui/button'
 
 export function SearchBar() {
-  const [searchQuery, setSearchQuery] = useState('')
+  const search = useSearchParams()
+  const [searchQuery, setSearchQuery] = useState(
+    search ? search.get('query') : null,
+  )
   const router = useRouter()
 
   const onSearch = (event: FormEvent) => {
     event.preventDefault()
 
-    const encodedSearchQuery = encodeURI(searchQuery)
-    router.push(`/search?q=${encodedSearchQuery}`)
+    const encodedSearchQuery = encodeURI(searchQuery || '')
+    if (searchQuery) {
+      router.push(`/search?query=${encodedSearchQuery}`)
+    } else {
+      router.push('/search')
+    }
   }
 
   return (
@@ -24,13 +31,13 @@ export function SearchBar() {
     >
       <Input
         type="text"
-        value={searchQuery}
+        value={searchQuery || ''}
         onChange={(event) => setSearchQuery(event.target.value)}
         placeholder="Search for products..."
       />
-      <div className="absolute right-0 top-0 mr-3 flex h-full items-center">
+      <Button type="submit" size="icon" className="absolute inset-y-0 right-0">
         <Search className="h-4" />
-      </div>
+      </Button>
     </form>
   )
 }

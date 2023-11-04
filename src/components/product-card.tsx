@@ -31,7 +31,7 @@ export function ProductCard({ product }: ProductItemProps) {
   return (
     <li className="group relative animate-fadeIn overflow-hidden border-b border-r bg-card transition-opacity">
       <Link
-        className="flex h-full w-full flex-col"
+        className="flex h-full w-full flex-col p-2"
         href={`/product/${product.slug}`}
       >
         <div className="relative flex aspect-square items-center justify-center overflow-hidden p-8 md:p-10 lg:p-12">
@@ -43,7 +43,7 @@ export function ProductCard({ product }: ProductItemProps) {
           </Badge>
         )}
 
-        <div className="z-20 mx-2 mb-2 flex flex-1 flex-col rounded-lg border bg-background/80 p-2 transition duration-300 group-hover:-translate-y-12">
+        <div className="z-20 flex flex-1 flex-col rounded-lg border bg-background/80 p-2 transition duration-300 group-hover:-translate-y-12">
           <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm sm:text-base">
             {product.name}
           </p>

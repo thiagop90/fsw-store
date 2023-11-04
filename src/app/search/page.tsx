@@ -12,40 +12,32 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Loader } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
 
-type SearchPageProps = {
-  searchParams: { query: string }
+export const searchAllProducts = async (
+  pageParam: string,
+  encodedSearchQuery: string,
+) => {
+  const response = await axios.get(
+    `/api/search?cursor=${pageParam}&query=${encodedSearchQuery}`,
+  )
+  return response?.data
 }
 
-// export const generateMetadata = ({
-//   searchParams: { query },
-// }: SearchPageProps) => {
-//   return {
-//     title: query ? `Search: ${query}` : 'Search',
-//   }
-// }
-
-export default function SearchPage({
-  searchParams: { query },
-}: SearchPageProps) {
+export default function SearchPage() {
   const { ref, inView } = useInView()
   const search = useSearchParams()
-  const searchQuery = search ? search.get('q') : null
+  const searchQuery = search ? search.get('query') : null
   const encodedSearchQuery = encodeURI(searchQuery || '')
 
   const {
     isLoading,
-    isError,
     data,
     isSuccess,
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery(
-    'products',
-    async ({ pageParam = '' }) => {
-      const res = await axios.get('/api/products?cursor=' + pageParam)
-      return res.data
-    },
+    ['products', { encodedSearchQuery }],
+    ({ pageParam = '' }) => searchAllProducts(pageParam, encodedSearchQuery),
     {
       getNextPageParam: (lastPage) => lastPage.nextId,
     },
@@ -55,67 +47,65 @@ export default function SearchPage({
     if (inView && hasNextPage) {
       fetchNextPage()
     }
-  }, [inView])
+  }, [hasNextPage, inView, fetchNextPage])
 
   if (isLoading)
     return (
-      <WrapperProduct>
-        {Array(12)
-          .fill(null)
-          .map((item, index) => (
-            <div
-              key={index}
-              className="flex h-full w-full flex-col gap-2 border-b border-r p-2"
-            >
-              <Skeleton className="aspect-square h-full w-full" />
-              <Skeleton className="h-[86px] w-full" />
-            </div>
-          ))}
-      </WrapperProduct>
+      <>
+        {searchQuery && <Skeleton className="mb-4 h-6 w-48" />}
+        <WrapperProduct>
+          {Array(12)
+            .fill(null)
+            .map((item, index) => (
+              <div
+                key={index}
+                className="flex h-full w-full flex-col gap-2 border-b border-r p-2"
+              >
+                <Skeleton className="aspect-square" />
+                <Skeleton className="h-[82px] w-full sm:h-[86px]" />
+              </div>
+            ))}
+        </WrapperProduct>
+      </>
     )
-  if (isError) return <div>Error!</div>
-  // const products = await prismaClient.product.findMany({
-  //   where: {
-  //     OR: [
-  //       {
-  //         name: { contains: query, mode: 'insensitive' },
-  //       },
-  //       {
-  //         category: {
-  //           name: { contains: query, mode: 'insensitive' },
-  //         },
-  //       },
-  //     ],
-  //   },
-  //   orderBy: { id: 'desc' },
-  //   take: 20,
-  // })
 
-  // if (products.length === 0) {
-  //   return (
-  //     <p className="mb-4">
-  //       There are no products that match{' '}
-  //       <span className="font-bold">
-  //         {'"'}
-  //         {query}
-  //         {'"'}
-  //       </span>
-  //     </p>
-  //   )
-  // }
+  const totalResults =
+    isSuccess &&
+    data.pages.reduce((total, page) => total + page.search.length, 0)
 
-  // const resultsText = products.length > 1 ? 'results' : 'result'
+  if (totalResults === 0) {
+    return (
+      <p className="mb-4">
+        There are no products that match{' '}
+        <span className="font-bold">
+          {'"'}
+          {searchQuery}
+          {'"'}
+        </span>
+      </p>
+    )
+  }
 
   return (
     <>
+      {searchQuery && totalResults > 0 && (
+        <p className="mb-4">
+          Showing {totalResults} result for{' '}
+          <span className="font-bold">
+            {'"'}
+            {searchQuery}
+            {'"'}
+          </span>
+        </p>
+      )}
       {isSuccess && (
         <WrapperProduct>
           {data.pages.map((page) => (
             <Fragment key={page.nextId ?? 'lastPage'}>
-              {page.products.map((products: Product) => (
+              {page.search.map((product: Product) => (
                 <ProductCard
-                  key={products.id}
-                  product={computeProductTotalPrice(products)}
+                  key={product.id}
+                  product={computeProductTotalPrice(product)}
                 />
               ))}
             </Fragment>
