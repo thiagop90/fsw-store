@@ -12,7 +12,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Loader } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
 
-export const searchAllProducts = async (
+const searchAllProducts = async (
   pageParam: string,
   encodedSearchQuery: string,
 ) => {
