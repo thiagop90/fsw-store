@@ -35,9 +35,9 @@ export function SearchBar() {
         onChange={(event) => setSearchQuery(event.target.value)}
         placeholder="Search for products..."
       />
-      <Button type="submit" size="icon" className="absolute inset-y-0 right-0">
+      <div className="absolute inset-y-0 right-0 mr-3 flex items-center">
         <Search className="h-4" />
-      </Button>
+      </div>
     </form>
   )
 }

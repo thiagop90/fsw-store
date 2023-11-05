@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { Categories } from './components/categories'
 import { SearchBar } from '@/components/search-bar'
+import { FilterList } from './components/filter-list'
 
 export default function SearchLayout({
   children,
@@ -18,6 +19,9 @@ export default function SearchLayout({
         </div>
         <div className="order-last min-h-screen w-full md:order-none">
           {children}
+        </div>
+        <div className="order-none flex-none md:order-last md:w-[125px]">
+          <FilterList />
         </div>
       </div>
     </Suspense>

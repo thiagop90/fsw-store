@@ -6,7 +6,7 @@ export async function Categories() {
   const categories = await prismaClient.category.findMany({})
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col">
       <div className="hidden md:block">
         <h3 className="text-sm text-muted-foreground">Categories</h3>
         <FilterItem href="/search">All</FilterItem>

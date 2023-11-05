@@ -15,18 +15,21 @@ import { useSearchParams } from 'next/navigation'
 const searchAllProducts = async (
   pageParam: string,
   encodedSearchQuery: string,
+  encodedSortQuery: string,
 ) => {
   const response = await axios.get(
-    `/api/search?cursor=${pageParam}&query=${encodedSearchQuery}`,
+    `/api/search?cursor=${pageParam}&query=${encodedSearchQuery}&sort=${encodedSortQuery}`,
   )
-  return response?.data
+  return response.data
 }
 
 export default function SearchPage() {
   const { ref, inView } = useInView()
   const search = useSearchParams()
   const searchQuery = search ? search.get('query') : null
+  const sortQuery = search ? search.get('sort') : null
   const encodedSearchQuery = encodeURI(searchQuery || '')
+  const encodedSortQuery = encodeURI(sortQuery || '')
 
   const {
     isLoading,
@@ -36,8 +39,9 @@ export default function SearchPage() {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery(
-    ['products', { encodedSearchQuery }],
-    ({ pageParam = '' }) => searchAllProducts(pageParam, encodedSearchQuery),
+    ['products', { encodedSearchQuery, encodedSortQuery }],
+    ({ pageParam = '' }) =>
+      searchAllProducts(pageParam, encodedSearchQuery, encodedSortQuery),
     {
       getNextPageParam: (lastPage) => lastPage.nextId,
     },
