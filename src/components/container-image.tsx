@@ -4,10 +4,10 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 type ContainerImageProps = {
-  product: Product
+  imageUrl: string[]
 }
 
-export function ContainerImage({ product }: ContainerImageProps) {
+export function ContainerImage({ imageUrl }: ContainerImageProps) {
   const [imageLoaded, setImageLoaded] = useState(false)
 
   const handleImageLoad = () => {
@@ -22,12 +22,12 @@ export function ContainerImage({ product }: ContainerImageProps) {
         </div>
       )}
       <Image
-        src={product.imageUrls[0]}
+        src={imageUrl[0]}
         width={0}
         height={0}
         sizes="100vw"
         className="z-10 h-full w-full object-contain transition duration-300 group-hover:scale-105"
-        alt={product.name}
+        alt=""
         onLoad={handleImageLoad}
       />
     </>

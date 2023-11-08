@@ -22,17 +22,19 @@ export function SheetCart() {
   const formattedDiscount = formatCurrency(discount())
   const formattedTotalPriceWithDiscount = formatCurrency(totalPrice())
 
+  const itemText = cart.length > 1 ? 'items' : 'item'
+
   return (
     <Sheet>
       <SheetTrigger className="relative inline-flex h-11 w-11 items-center justify-center rounded-lg border bg-background transition-colors hover:bg-accent hover:text-accent-foreground">
-        <ShoppingCart className="h-5 w-5 transition group-hover:text-primary" />
+        <ShoppingCart className="h-5 w-5" />
         {cart.length > 0 && (
           <div className="absolute right-0 top-0 -mr-2 -mt-2 h-4 w-4 rounded bg-primary text-xs font-semibold">
             {count()}
           </div>
         )}
       </SheetTrigger>
-      <SheetContent className="flex flex-col gap-0 p-0">
+      <SheetContent className="flex w-full flex-col gap-0 p-0">
         <SheetHeader className="p-6">
           <SheetTitle className="text-lg">My Cart</SheetTitle>
         </SheetHeader>
@@ -40,13 +42,15 @@ export function SheetCart() {
           <div className="mt-20 flex w-full flex-col items-center justify-center">
             <ShoppingCart className="h-16 w-16" />
             <p className="mt-6 text-center text-2xl font-bold">
-              Your shopping cart is empty.
+              Your cart is empty.
             </p>
           </div>
         ) : (
           <div className="flex h-full flex-col justify-between overflow-hidden">
             <div className="flex items-center justify-between border-b border-t px-6 py-1.5">
-              <p>{cart.length} items</p>
+              <p>
+                {cart.length} {itemText}
+              </p>
               <button
                 className="flex self-end font-medium text-primary hover:underline"
                 onClick={removeAll}

@@ -1,6 +1,6 @@
 import { Categories } from './components/categories'
 import { prismaClient } from '@/lib/prisma'
-import { ProductCarousel } from './components/product-carousel'
+import { CarouselProducts } from './components/carousel-products'
 import { SectionTitle } from './components/section-title'
 import { EmblaOptionsType } from 'embla-carousel-react'
 
@@ -58,7 +58,7 @@ export default async function Home() {
           </h3>
         </div>
         <div className="md:w-[55%] lg:w-2/3">
-          <ProductCarousel
+          <CarouselProducts
             className="rounded-t-lg bg-background py-6 md:mx-0 md:rounded-b-lg"
             products={deals}
             options={OPTIONS}
@@ -75,16 +75,16 @@ export default async function Home() {
 
       <div>
         <SectionTitle>Mices</SectionTitle>
-        <ProductCarousel products={mices} />
+        <CarouselProducts products={mices} />
       </div>
 
       <div>
         <SectionTitle>Keyboards</SectionTitle>
-        <ProductCarousel products={keyboards} />
+        <CarouselProducts products={keyboards} />
       </div>
       <div>
         <SectionTitle>Headsets</SectionTitle>
-        <ProductCarousel products={headsets} />
+        <CarouselProducts products={headsets} />
       </div>
     </div>
   )

@@ -1,6 +1,4 @@
-'use client'
-
-import { Home, MenuIcon, X } from 'lucide-react'
+import { MenuIcon } from 'lucide-react'
 import {
   Sheet,
   SheetClose,
@@ -8,14 +6,9 @@ import {
   SheetHeader,
   SheetTrigger,
 } from '../ui/sheet'
-import { Separator } from '../ui/separator'
-import { usePathname } from 'next/navigation'
-import { cn } from '@/lib/utils'
+
 import Link from 'next/link'
 import { StatusAuthenticated } from './status-authenticated'
-import { useCartStore } from '@/lib/cart'
-import { SearchBar } from '../search-bar'
-
 const links = [
   { href: '/search', label: 'All' },
   { href: '/search/mices', label: 'Mices' },
@@ -23,9 +16,6 @@ const links = [
 ]
 
 export function SheetMenu() {
-  const pathname = usePathname()
-  const { isOpen } = useCartStore()
-
   return (
     <Sheet>
       <SheetTrigger className="inline-flex h-11 w-11 items-center justify-center rounded-lg border bg-background transition-colors hover:bg-accent hover:text-accent-foreground">

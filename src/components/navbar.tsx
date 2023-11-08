@@ -3,6 +3,8 @@ import { SheetCart } from './cart/sheet-cart'
 import { SheetMenu } from './menu/sheet-menu'
 import { Hydrate } from './hydrate'
 import { SearchBar } from './search-bar'
+import Image from 'next/image'
+import { Flower, Gamepad, Squirrel, Store } from 'lucide-react'
 
 const links = [
   { href: '/search', label: 'All' },
@@ -20,9 +22,14 @@ export function Navbar() {
         <div className="flex w-full md:w-1/3">
           <Link
             href="/"
-            className="mr-2 flex w-full items-center justify-center text-xl font-bold md:w-auto lg:mr-6"
+            className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
           >
-            <span className="text-primary">FSW</span> Store
+            <div className="flex h-10 w-10 flex-none items-center justify-center rounded-xl border bg-card">
+              <Flower strokeWidth={1.5} className="h-5 w-5" />
+            </div>
+            <div className="ml-2 flex-none font-semibold uppercase md:hidden lg:block">
+              FSW <span>Store</span>
+            </div>
           </Link>
           <ul className="hidden gap-6 font-medium md:flex md:items-center">
             {links.map((link, index) => (

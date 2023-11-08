@@ -13,10 +13,9 @@ type CartStore = {
   totalPrice: () => number
   discount: () => number
   addToCart: (product: ProductWithTotalPrice) => void
-  removeFromCart: (productId: string) => void
+  removeFromCartByQuantity: (productId: string) => void
+  removeItemFromCart: (productId: string) => void
   removeAll: () => void
-  isOpen: boolean
-  toggleCart: () => void
 }
 
 export const useCartStore = create<CartStore>()(
@@ -49,20 +48,17 @@ export const useCartStore = create<CartStore>()(
         set({ cart: updatedCart })
       },
 
-      removeFromCart: (productId: string) => {
-        const updatedCart = removeCart(productId, get().cart)
+      removeFromCartByQuantity: (productId: string) => {
+        const updatedCart = removeCartItem(productId, get().cart)
+        set({ cart: updatedCart })
+      },
+
+      removeItemFromCart: (productId: string) => {
+        const updatedCart = removeItemFromCart(productId, get().cart)
         set({ cart: updatedCart })
       },
 
       removeAll: () => set({ cart: [] }),
-
-      isOpen: false,
-      toggleCart: () => {
-        set((state) => ({
-          ...state,
-          isOpen: !state.isOpen,
-        }))
-      },
     }),
 
     { name: 'cart-items' },
@@ -87,9 +83,14 @@ function updateCart(
   return updatedCart
 }
 
-function removeCart(idProduct: string, cart: CartItem[]): CartItem[] {
+function removeCartItem(idProduct: string, cart: CartItem[]): CartItem[] {
   const updatedCart = cart.map((item) =>
     item.id === idProduct ? { ...item, count: item.count - 1 } : item,
   )
   return updatedCart.filter((item) => item.count > 0)
+}
+
+function removeItemFromCart(idProduct: string, cart: CartItem[]): CartItem[] {
+  const updatedCart = cart.filter((item) => item.id !== idProduct)
+  return updatedCart
 }

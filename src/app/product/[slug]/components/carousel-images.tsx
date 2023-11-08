@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ThumbsButton } from './thumbs-button'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 type ProductImagesProps = {
   imageUrls: string[]
@@ -11,7 +12,9 @@ type ProductImagesProps = {
 
 export function CarouselImages({ imageUrls }: ProductImagesProps) {
   const [selectedIndex, setSelectedIndex] = useState(0)
-  const [emblaMainRef, emblaMainApi] = useEmblaCarousel()
+  const [emblaMainRef, emblaMainApi] = useEmblaCarousel({
+    loop: true,
+  })
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel()
 
   const onThumbClick = useCallback(
@@ -20,6 +23,15 @@ export function CarouselImages({ imageUrls }: ProductImagesProps) {
       emblaMainApi.scrollTo(index)
     },
     [emblaMainApi, emblaThumbsApi],
+  )
+
+  const scrollPrev = useCallback(
+    () => emblaMainApi && emblaMainApi.scrollPrev(),
+    [emblaMainApi],
+  )
+  const scrollNext = useCallback(
+    () => emblaMainApi && emblaMainApi.scrollNext(),
+    [emblaMainApi],
   )
 
   const onSelect = useCallback(() => {
@@ -36,8 +48,11 @@ export function CarouselImages({ imageUrls }: ProductImagesProps) {
   }, [emblaMainApi, onSelect])
 
   return (
-    <div ref={emblaMainRef}>
-      <div className="flex aspect-square max-h-[550px] w-full touch-pan-y space-x-8 backface-hidden">
+    <div
+      className="relative h-full w-full basis-full overflow-hidden lg:basis-4/6"
+      ref={emblaMainRef}
+    >
+      <div className="flex aspect-square h-full max-h-[550px] w-full touch-pan-y backface-hidden">
         {imageUrls.map((imageUrl) => (
           <Image
             key={imageUrl}
@@ -52,7 +67,24 @@ export function CarouselImages({ imageUrls }: ProductImagesProps) {
           />
         ))}
       </div>
-      <div className="my-12">
+      <div className="absolute bottom-[35%] flex w-full justify-center">
+        <div className="mx-auto flex h-11 items-center rounded-full border bg-background/80 backdrop-blur">
+          <button
+            onClick={scrollPrev}
+            className="flex h-full items-center justify-center px-6 text-muted-foreground transition-all ease-in-out hover:scale-110 hover:text-foreground"
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </button>
+          <div className="mx-1 h-6 w-px bg-neutral-500" />
+          <button
+            onClick={scrollNext}
+            className="flex h-full items-center justify-center px-6 text-muted-foreground transition-all ease-in-out hover:scale-110 hover:text-foreground"
+          >
+            <ArrowRight className="h-5 w-5" />
+          </button>
+        </div>
+      </div>
+      <ul className="my-12">
         <div className="overflow-hidden" ref={emblaThumbsRef}>
           <div className="flex items-center justify-center space-x-3">
             {imageUrls.map((imageUrl, index) => (
@@ -65,7 +97,7 @@ export function CarouselImages({ imageUrls }: ProductImagesProps) {
             ))}
           </div>
         </div>
-      </div>
+      </ul>
     </div>
   )
 }

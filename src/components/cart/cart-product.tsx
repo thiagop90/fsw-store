@@ -1,19 +1,16 @@
-'use client'
-
-import { CartItem, useCartStore } from '@/lib/cart'
-import { Minus, Plus, Trash2 } from 'lucide-react'
+import { CartItem } from '@/lib/cart'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SheetTrigger } from '../ui/sheet'
 import { formatCurrency } from '@/lib/products'
+import { ToogleQuantity } from '../toggle-quantity'
+import { ButtonRemoveItem } from './button-remove-item'
 
 type ProductCartProps = {
   item: CartItem
 }
 
 export function CartProduct({ item }: ProductCartProps) {
-  const { addToCart, removeFromCart } = useCartStore()
-
   const formattedBasePrice = formatCurrency(Number(item.basePrice))
   const formattedTotalPrice = formatCurrency(item.totalPrice)
   const formattedTotalPriceWithQuantity = formatCurrency(
@@ -21,54 +18,43 @@ export function CartProduct({ item }: ProductCartProps) {
   )
 
   return (
-    <li className="flex justify-between border-b py-4">
-      <SheetTrigger asChild>
-        <Link href={`/product/${item.slug}`} className="flex gap-4 ">
-          <div className="h-20 w-20 cursor-pointer overflow-hidden rounded-lg border bg-accent p-1">
-            <Image
-              src={item.imageUrls[0]}
-              alt={item.name}
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="h-full w-full object-contain"
-            />
+    <li className="flex border-b py-6 last:border-0 ">
+      <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border bg-background p-1">
+        <Image
+          src={item.imageUrls[0]}
+          alt={item.name}
+          width={0}
+          height={0}
+          sizes="100vw"
+          className="h-full w-full object-contain"
+        />
+      </div>
+      <div className="ml-4 flex flex-1 flex-col ">
+        <div>
+          <div className="flex justify-between font-medium">
+            <SheetTrigger asChild>
+              <Link href={`/product/${item.slug}`} className="">
+                {item.name}
+              </Link>
+            </SheetTrigger>
+            <p className="ml-2">{formattedTotalPriceWithQuantity}</p>
           </div>
-          <div className="flex flex-col font-medium">
-            <p className="">{item.name}</p>
+          <div className="mt-0.5 flex items-center gap-1 text-sm">
             {item.discountPercentage > 0 ? (
               <>
+                <p>{formattedTotalPrice}</p>
                 <p className="text-xs text-muted-foreground line-through">
                   {formattedBasePrice}
                 </p>
-                <p>{formattedTotalPrice}</p>
               </>
             ) : (
               <p>{formattedBasePrice}</p>
             )}
           </div>
-        </Link>
-      </SheetTrigger>
-      <div className="flex flex-col justify-between">
-        <p className="ml-auto font-medium">{formattedTotalPriceWithQuantity}</p>
-        <div className="flex h-10 items-center rounded-full border">
-          <button
-            onClick={() => removeFromCart(item.id)}
-            className="flex h-full w-9 flex-none items-center justify-center px-2 transition hover:text-primary"
-          >
-            {item.count > 1 ? (
-              <Minus className="h-4 w-4" />
-            ) : (
-              <Trash2 className="h-4 w-4" strokeWidth="1.5" />
-            )}
-          </button>
-          <p className="w-6 text-center">{item.count}</p>
-          <button
-            onClick={() => addToCart(item)}
-            className="flex h-full w-9 flex-none items-center justify-center px-2 transition hover:text-primary"
-          >
-            <Plus className="h-4 w-4" />
-          </button>
+        </div>
+        <div className="flex flex-1 items-end justify-between">
+          <ButtonRemoveItem item={item} />
+          <ToogleQuantity item={item} />
         </div>
       </div>
     </li>

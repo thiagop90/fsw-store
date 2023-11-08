@@ -26,7 +26,7 @@ type ProductListProps = HTMLAttributes<HTMLDivElement> & {
   progressBar?: boolean
 }
 
-export const ProductCarousel = forwardRef<HTMLDivElement, ProductListProps>(
+export const CarouselProducts = forwardRef<HTMLDivElement, ProductListProps>(
   ({ autoplay, className, options, products, progressBar, ...props }, ref) => {
     const emblaOptions = autoplay
       ? [Autoplay({ delay: 2000, stopOnInteraction: false })]
@@ -79,7 +79,7 @@ export const ProductCarousel = forwardRef<HTMLDivElement, ProductListProps>(
               <ChevronLeft className="h-4 w-4 group-hover:text-primary" />
             </Button>
           </div>
-          <div className="absolute inset-y-0 right-0 hidden items-center gap-2 bg-gradient-to-l from-card px-2 md:flex">
+          <div className="absolute inset-y-1 right-0 hidden items-center gap-2 bg-gradient-to-l from-card px-2 md:flex">
             <Button
               className="group h-8 w-8"
               size="icon"
@@ -102,4 +102,4 @@ export const ProductCarousel = forwardRef<HTMLDivElement, ProductListProps>(
     )
   },
 )
-ProductCarousel.displayName = 'ProductCarousel'
+CarouselProducts.displayName = 'CarouselProducts'

@@ -27,8 +27,8 @@ export default async function ProductDetailsPage({
   // const formattedTotalPrice = formatCurrency(product.totalPrice)
 
   return (
-    <div className="mx-auto max-w-screen-xl py-6">
-      <div className="flex flex-col overflow-hidden rounded-lg border bg-card p-8">
+    <div className="mx-auto max-w-screen-xl">
+      <div className="flex flex-col overflow-hidden rounded-lg border bg-card p-8 md:p-12 lg:flex-row lg:gap-8">
         <CarouselImages imageUrls={product.imageUrls} />
         <div className="flex flex-col">
           <h1 className="text-2xl font-medium">{product.name}</h1>

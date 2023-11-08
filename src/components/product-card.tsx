@@ -35,7 +35,7 @@ export function ProductCard({ product }: ProductItemProps) {
         href={`/product/${product.slug}`}
       >
         <div className="relative flex aspect-square items-center justify-center overflow-hidden p-8 md:p-10 lg:p-12">
-          <ContainerImage product={product} />
+          <ContainerImage imageUrl={product.imageUrls} />
         </div>
         {product.discountPercentage > 0 && (
           <Badge className="absolute left-2 top-2 z-20 px-1.5 text-xs">
@@ -43,7 +43,7 @@ export function ProductCard({ product }: ProductItemProps) {
           </Badge>
         )}
 
-        <div className="z-20 flex flex-1 flex-col rounded-lg border bg-background/80 p-2 transition duration-300 group-hover:-translate-y-12">
+        <div className="z-20 flex flex-1 flex-col rounded-lg border bg-background/70 p-2 transition duration-300 group-hover:-translate-y-12">
           <p className="overflow-hidden text-ellipsis whitespace-nowrap text-sm sm:text-base">
             {product.name}
           </p>

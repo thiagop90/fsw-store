@@ -29,29 +29,27 @@ export function CardCarousel({ product }: ProductItemProps) {
   }
 
   return (
-    <li className="group relative aspect-square h-[30vh] max-h-[275px] flex-none list-none overflow-hidden rounded-lg border bg-card hover:border-primary ">
+    <li className="group relative aspect-square h-[30vh] max-h-[275px] flex-none overflow-hidden rounded-lg border bg-card hover:border-primary">
       <Link
-        className="group flex h-full w-full items-center justify-center p-10"
+        className="group flex h-full w-full items-center justify-center p-12"
         href={`/product/${product.slug}`}
       >
-        <ContainerImage product={product} />
+        <ContainerImage imageUrl={product.imageUrls} />
       </Link>
-      <div className="absolute inset-x-4 top-4">
-        <div className="flex ">
-          <p className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap break-words text-sm font-semibold">
-            {product.name}
-          </p>
+      <div className="absolute inset-x-4 top-4 flex">
+        <p className="mr-2 flex-1 truncate text-sm font-semibold">
+          {product.name}
+        </p>
 
-          {product.discountPercentage > 0 && (
-            <Badge className="ml-2 px-1.5">
-              <ArrowDown className="h-4 w-4" /> {product.discountPercentage}%
-            </Badge>
-          )}
-        </div>
+        {product.discountPercentage > 0 && (
+          <Badge className="px-1">
+            <ArrowDown className="h-4 w-4" /> {product.discountPercentage}%
+          </Badge>
+        )}
       </div>
 
       <div className="absolute inset-x-4 bottom-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-end justify-between">
           <div className="flex flex-col">
             {product.discountPercentage > 0 ? (
               <>

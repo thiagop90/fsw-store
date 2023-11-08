@@ -17,7 +17,7 @@ export function FilterList() {
     <div className="flex flex-col">
       <div className="">
         <h3 className="text-sm text-muted-foreground">Sort by</h3>
-        <FilterItem href="/search">Relevance</FilterItem>
+        <FilterItem href={appendSortToUrl('')}>Relevance</FilterItem>
         <FilterItem href={appendSortToUrl('sort=price-asc')}>
           Price: Low to high
         </FilterItem>
