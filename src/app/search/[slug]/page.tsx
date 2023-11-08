@@ -23,7 +23,7 @@ export default async function CategoryProducts({
   params,
   searchParams,
 }: CategoryItemProps) {
-  let = orderByObj: Prisma.ProductOrderByWithRelationInput = {}
+  let orderByObj: Prisma.ProductOrderByWithRelationInput = {}
   const sortParam = searchParams.sort
   if (!sortParam) {
     orderByObj = { id: 'desc' }
