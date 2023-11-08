@@ -11,7 +11,6 @@ type CategoryItemProps = {
   searchParams: {
     sort: string
   }
-  orderByObj: Prisma.ProductOrderByWithRelationInput
 }
 
 export const generateMetadata = ({ params: { slug } }: CategoryItemProps) => {
@@ -23,8 +22,8 @@ export const generateMetadata = ({ params: { slug } }: CategoryItemProps) => {
 export default async function CategoryProducts({
   params,
   searchParams,
-  orderByObj,
 }: CategoryItemProps) {
+  let = orderByObj: Prisma.ProductOrderByWithRelationInput = {}
   const sortParam = searchParams.sort
   if (!sortParam) {
     orderByObj = { id: 'desc' }
