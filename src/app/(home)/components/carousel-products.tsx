@@ -16,8 +16,7 @@ import { computeProductTotalPrice } from '@/lib/products'
 import { Product } from '@prisma/client'
 import { CardCarousel } from './card-carousel'
 import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { NextButton, PrevButton } from './arrows-buttons'
 
 type ProductListProps = HTMLAttributes<HTMLDivElement> & {
   autoplay?: boolean
@@ -60,8 +59,8 @@ export const CarouselProducts = forwardRef<HTMLDivElement, ProductListProps>(
     }, [emblaApi, onScroll])
 
     return (
-      <div className={cn('-mx-4', className)} ref={ref} {...props}>
-        <div className="relative overflow-hidden px-4" ref={emblaRef}>
+      <div className={cn('-mx-4 md:mx-0', className)} ref={ref} {...props}>
+        <div className="relative overflow-hidden px-4 md:px-0" ref={emblaRef}>
           <div className="flex touch-pan-y backface-hidden">
             {products.map((product) => (
               <div key={product.id} className="mr-4">
@@ -69,26 +68,8 @@ export const CarouselProducts = forwardRef<HTMLDivElement, ProductListProps>(
               </div>
             ))}
           </div>
-          <div className="absolute inset-y-0 left-0 hidden items-center gap-2 px-2 md:flex">
-            <Button
-              className="group h-8 w-8"
-              size="icon"
-              variant="outline"
-              onClick={scrollPrev}
-            >
-              <ChevronLeft className="h-4 w-4 group-hover:text-primary" />
-            </Button>
-          </div>
-          <div className="absolute inset-y-1 right-0 hidden items-center gap-2 bg-gradient-to-l from-card px-2 md:flex">
-            <Button
-              className="group h-8 w-8"
-              size="icon"
-              variant="outline"
-              onClick={scrollNext}
-            >
-              <ChevronRight className="h-4 w-4 group-hover:text-primary" />
-            </Button>
-          </div>
+          <PrevButton onClick={scrollPrev} />
+          <NextButton onClick={scrollNext} />
         </div>
         {progressBar && (
           <div className="pointer-events-none relative inset-x-0 mx-auto mt-4 flex h-1.5 w-56 max-w-[90%] overflow-hidden rounded-full border bg-card">

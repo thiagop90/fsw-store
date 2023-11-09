@@ -31,7 +31,7 @@ export function CardCarousel({ product }: ProductItemProps) {
   return (
     <li className="group relative aspect-square h-[30vh] max-h-[275px] flex-none overflow-hidden rounded-lg border bg-card hover:border-primary">
       <Link
-        className="group flex h-full w-full items-center justify-center p-12"
+        className="flex h-full w-full items-center justify-center p-12"
         href={`/product/${product.slug}`}
       >
         <ContainerImage imageUrl={product.imageUrls} />
