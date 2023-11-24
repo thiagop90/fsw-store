@@ -51,7 +51,7 @@ export default async function Home() {
 
   return (
     <div className="mx-auto flex max-w-screen-xl flex-col gap-8 pb-6">
-      <div className="-mx-4 flex flex-col bg-primary px-4 pt-6 md:mx-0 md:flex-row md:rounded-lg md:p-4">
+      <div className="-mx-4 flex flex-col bg-primary px-4 pt-6 md:mx-0 md:flex-row md:rounded-lg md:p-6">
         <div className="flex flex-col md:w-[45%] md:justify-center md:pr-6 lg:w-1/3">
           <h1 className="mb-2 text-5xl font-bold leading-relaxed tracking-tighter lg:text-[3.75rem]">
             7-Day <span className="text-card">Sale</span>

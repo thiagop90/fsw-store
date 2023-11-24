@@ -4,7 +4,7 @@ import { ProductWithTotalPrice, formatCurrency } from '@/lib/products'
 import { Badge } from '@/components/ui/badge'
 import { ArrowDown, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
-import { useCartStore } from '@/lib/cart'
+import { useCartStore } from '@/store/cart'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import { ContainerImage } from '@/components/container-image'
@@ -22,10 +22,10 @@ export function ProductCard({ product }: ProductItemProps) {
 
   const handleAddToCart = () => {
     addToCart(product)
-    toast({
-      title: 'Produto adicionado ao carrinho',
-      description: `${product.name} foi adicionado.`,
-    })
+    // toast({
+    //   title: 'Produto adicionado ao carrinho',
+    //   description: `${product.name} foi adicionado.`,
+    // })
   }
 
   return (

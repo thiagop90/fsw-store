@@ -1,3 +1,5 @@
+'use client'
+
 import { MenuIcon } from 'lucide-react'
 import {
   Sheet,
@@ -9,6 +11,7 @@ import {
 
 import Link from 'next/link'
 import { StatusAuthenticated } from './status-authenticated'
+import { useEffect, useState } from 'react'
 const links = [
   { href: '/search', label: 'All' },
   { href: '/search/mices', label: 'Mices' },
@@ -16,12 +19,20 @@ const links = [
 ]
 
 export function SheetMenu() {
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    const mainElement = document.getElementById('wrapper')
+    if (mainElement) {
+      mainElement.style.transition = 'transform 0.3s ease'
+      mainElement.style.transform = open ? 'translateX(320px)' : 'translateX(0)'
+    }
+  }, [open])
+
   return (
-    <Sheet>
-      <SheetTrigger className="inline-flex h-11 w-11 items-center justify-center rounded-lg border bg-background transition-colors hover:bg-accent hover:text-accent-foreground">
-        <div className="pointer-events-auto">
-          <MenuIcon className="h-5 w-5" />
-        </div>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger className="inline-flex h-10 w-10 items-center justify-center rounded-lg border bg-background transition-colors hover:text-accent-foreground">
+        <MenuIcon className="h-5 w-5" />
       </SheetTrigger>
 
       <SheetContent side="left">

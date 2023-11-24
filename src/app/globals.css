@@ -24,10 +24,6 @@
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
     --radius: 0.5rem;
-
-    --swiper-pagination-bullet-width: 10px;
-    --swiper-pagination-bullet-height: 10px;
-    --swiper-navigation-sides-offset: 0;
   }
 }
 
@@ -37,28 +33,6 @@
   }
   
   body {
-    @apply h-full bg-background text-foreground;
+    @apply h-full bg-background text-foreground antialiased;
   }
-
-  html {
-    @apply h-full;
-  }
-
-  .swiper.swiper-initialized.swiper-horizontal {
-    @apply px-4 -mx-4 md:mx-0 md:px-0
-  }
-
-  .my-swiper-1 .swiper-pagination {
-    @apply static h-5 flex items-center justify-center mt-2
-  }
-
-  .my-swiper-1 .swiper-wrapper {
-    @apply space-x-4
-  } 
-
-  .swiper .swiper-button-prev, .swiper .swiper-button-next {
-    @apply after:hidden invisible md:visible w-10 h-10 -translate-y-1/2 mt-0
-  }
-
-
 }

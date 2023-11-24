@@ -1,13 +1,13 @@
 'use client'
 
-import { CartItem, useCartStore } from '@/lib/cart'
+import { CartItem, useCartStore } from '@/store/cart'
 import { Minus, Plus } from 'lucide-react'
 
-type ToogleQuantityType = {
+type QuantityControlType = {
   item: CartItem
 }
 
-export function ToogleQuantity({ item }: ToogleQuantityType) {
+export function QuantityControl({ item }: QuantityControlType) {
   const { addToCart, removeFromCartByQuantity } = useCartStore()
 
   const handleRemoveItemByQuantity = () => removeFromCartByQuantity(item.id)

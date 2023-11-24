@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { ProductWithTotalPrice } from './products'
+import { ProductWithTotalPrice } from '../lib/products'
 
 export type CartItem = ProductWithTotalPrice & {
   count: number

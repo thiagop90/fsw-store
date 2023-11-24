@@ -8,7 +8,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { useCartStore } from '@/lib/cart'
+import { useCartStore } from '@/store/cart'
 import { ShoppingCart } from 'lucide-react'
 import { CartProduct } from './cart-product'
 import { ScrollArea } from '../ui/scroll-area'
@@ -26,7 +26,7 @@ export function SheetCart() {
 
   return (
     <Sheet>
-      <SheetTrigger className="relative inline-flex h-11 w-11 items-center justify-center rounded-lg border bg-background transition-colors hover:bg-accent hover:text-accent-foreground">
+      <SheetTrigger className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border bg-background transition-colors hover:bg-accent hover:text-accent-foreground">
         <ShoppingCart className="h-5 w-5" />
         {cart.length > 0 && (
           <div className="absolute right-0 top-0 -mr-2 -mt-2 h-4 w-4 rounded bg-primary text-xs font-semibold">

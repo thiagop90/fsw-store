@@ -4,7 +4,7 @@ import { Github, Linkedin } from 'lucide-react'
 
 export function Footer() {
   return (
-    <footer className="border-t bg-card py-6 text-sm text-muted-foreground">
+    <footer className="relative border-t py-6 text-sm text-muted-foreground ">
       <div className="mx-auto flex w-full flex-col items-center gap-2 px-4">
         <p>© 2023 FSW Store, Inc. All rights reserved.</p>
         <div className="flex gap-3">

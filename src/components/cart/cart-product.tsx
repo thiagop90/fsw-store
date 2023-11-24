@@ -1,9 +1,9 @@
-import { CartItem } from '@/lib/cart'
+import { CartItem } from '@/store/cart'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SheetTrigger } from '../ui/sheet'
 import { formatCurrency } from '@/lib/products'
-import { ToogleQuantity } from '../toggle-quantity'
+import { QuantityControl } from '../quantity-control'
 import { ButtonRemoveItem } from './button-remove-item'
 
 type ProductCartProps = {
@@ -54,7 +54,7 @@ export function CartProduct({ item }: ProductCartProps) {
         </div>
         <div className="flex flex-1 items-end justify-between">
           <ButtonRemoveItem item={item} />
-          <ToogleQuantity item={item} />
+          <QuantityControl item={item} />
         </div>
       </div>
     </li>

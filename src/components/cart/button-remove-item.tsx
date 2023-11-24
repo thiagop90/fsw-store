@@ -1,6 +1,6 @@
 'use client'
 
-import { CartItem, useCartStore } from '@/lib/cart'
+import { CartItem, useCartStore } from '@/store/cart'
 
 type ButtonRemoveItemType = {
   item: CartItem
