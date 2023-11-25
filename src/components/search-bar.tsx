@@ -1,13 +1,13 @@
 'use client'
 
 import { Input } from './ui/input'
-import { History, Search, Trash2 } from 'lucide-react'
+import { History, Search, Trash2, X } from 'lucide-react'
 import { FormEvent, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Button } from './ui/button'
 import { useSearchStore } from '@/store/search'
-import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import { MagicMotion, MagicExit } from 'react-magic-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const suggestions = [
   { query: 'razer' },
@@ -41,8 +41,8 @@ export function SearchBar() {
     setIsModalOpen(false)
   }
 
-  const openModal = () => {
-    setIsModalOpen(true)
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen)
   }
 
   const handleRecentSearchClick = (query: string) => {
@@ -52,97 +52,91 @@ export function SearchBar() {
   }
 
   return (
-    <form
-      action="/search"
-      onSubmit={onSearch}
-      className={`${isModalOpen ? '' : ''} relative w-full max-w-[550px]`}
-    >
-      <div className="relative w-full">
-        <Input
-          autoCorrect="off"
-          spellCheck="false"
-          type="text"
-          value={searchQuery || ''}
-          onChange={(event) => setSearchQuery(event.target.value)}
-          onFocus={openModal}
-          onBlur={() => setIsModalOpen(false)}
-          placeholder="Search for products..."
-          className={`${isModalOpen && 'border sm:rounded-b-none'}`}
-        />
-        <div className="absolute inset-y-0 right-0 mr-3 flex items-center">
-          <Search className="h-4" />
+    <MagicMotion>
+      <form
+        action="/search"
+        onSubmit={onSearch}
+        className={`${
+          isModalOpen
+            ? 'absolute inset-x-4 top-3 z-10 border-2 sm:static'
+            : 'relative h-10'
+        } flex flex-1 flex-col overflow-hidden rounded-lg border border-input`}
+      >
+        <div className="relative w-full">
+          <Input
+            autoCorrect="off"
+            spellCheck="false"
+            type="search"
+            value={searchQuery || ''}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            onFocus={toggleModal}
+            // onBlur={toggleModal}
+            placeholder="Search for products..."
+            className="border-none"
+          />
+          <div className="absolute inset-y-0 right-0 mr-3 flex items-center">
+            {isModalOpen ? (
+              <button
+                className="text-sm hover:underline"
+                type="button"
+                onClick={toggleModal}
+              >
+                Cancel
+              </button>
+            ) : (
+              <Search className="h-4" />
+            )}
+          </div>
         </div>
-      </div>
-      <AnimatePresence>
         {isModalOpen && (
-          <>
-            {/* <button
-              type="button"
-              className="ml-3 sm:hidden"
-              onClick={() => setIsModalOpen(false)}
-            >
-              Cancel
-            </button> */}
-            <motion.div
-              // initial={{ y: -100 }}
-              // animate={{ y: 0, transition: { duration: 0.3 } }}
-              // exit={{ y: -100 }}
-              className="fixed inset-x-0 top-16 -z-10 rounded-b-md border border-t-0 bg-card sm:absolute sm:top-full"
-            >
-              <ul className="py-4 pb-2">
-                {recentSearches.length === 0 ? (
-                  <>
-                    <h2 className="px-4 pb-1 text-muted-foreground">
-                      Suggestions
-                    </h2>
-                    {suggestions.map((suggestion) => (
-                      <li key={suggestion.query}>
-                        <Link
-                          href={`/search?query=${suggestion.query}`}
-                          onClick={() =>
-                            handleRecentSearchClick(suggestion.query)
-                          }
-                          className="flex flex-1 px-4 py-2 hover:bg-background"
-                        >
-                          {suggestion.query}
-                        </Link>
-                      </li>
-                    ))}
-                  </>
-                ) : (
-                  <>
-                    <h2 className="px-4 pb-1 text-muted-foreground">
-                      Recent Searches
-                    </h2>
-                    {recentSearches.map((query) => (
-                      <li
-                        className="flex justify-between px-4 hover:bg-background"
-                        key={query}
-                      >
-                        <Link
-                          className="flex flex-1 items-center gap-2 py-2"
-                          href={`/search?query=${query}`}
-                          onClick={() => handleRecentSearchClick(query)}
-                        >
-                          <History className="h-4 w-4" />
-                          {query}
-                        </Link>
-                        <button
-                          type="button"
-                          onClick={() => removeRecentSearch(query)}
-                          className="text-primary hover:underline"
-                        >
-                          Remover
-                        </button>
-                      </li>
-                    ))}
-                  </>
-                )}
-              </ul>
-            </motion.div>
-          </>
+          <ul className="bg-card py-4 pb-2">
+            {recentSearches.length === 0 ? (
+              <>
+                <h2 className="px-4 pb-1 text-muted-foreground">Suggestions</h2>
+                {suggestions.map((suggestion) => (
+                  <li key={suggestion.query}>
+                    <Link
+                      href={`/search?query=${suggestion.query}`}
+                      onClick={() => handleRecentSearchClick(suggestion.query)}
+                      className="flex flex-1 px-4 py-2 hover:bg-background"
+                    >
+                      {suggestion.query}
+                    </Link>
+                  </li>
+                ))}
+              </>
+            ) : (
+              <>
+                <h2 className="px-4 pb-1 text-muted-foreground">
+                  Recent Searches
+                </h2>
+                {recentSearches.map((query) => (
+                  <li
+                    className="flex justify-between px-4 hover:bg-background"
+                    key={query}
+                  >
+                    <Link
+                      className="flex flex-1 items-center gap-2 py-2"
+                      href={`/search?query=${query}`}
+                      onClick={() => handleRecentSearchClick(query)}
+                    >
+                      <History className="h-4 w-4" />
+                      {query}
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => removeRecentSearch(query)}
+                      className="text-primary hover:underline"
+                    >
+                      Remover
+                    </button>
+                  </li>
+                ))}
+              </>
+            )}
+          </ul>
         )}
-      </AnimatePresence>
-    </form>
+      </form>
+    </MagicMotion>
   )
 }
