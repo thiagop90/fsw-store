@@ -44,7 +44,7 @@ export function Header() {
             ))}
           </ul>
         </div>
-        <div className="flex w-full justify-center lg:w-1/3">
+        <div className="flex w-full justify-center sm:relative lg:mx-auto lg:w-1/3">
           <SearchBar />
         </div>
         <div className="flex justify-end lg:w-1/3">

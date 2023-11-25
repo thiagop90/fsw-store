@@ -1,13 +1,14 @@
 'use client'
 
 import { Input } from './ui/input'
-import { History, Search, Trash2, X } from 'lucide-react'
+import { History, Search, Trash, Trash2, X } from 'lucide-react'
 import { FormEvent, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useSearchStore } from '@/store/search'
 import Link from 'next/link'
 import { MagicMotion, MagicExit } from 'react-magic-motion'
 import { motion, AnimatePresence } from 'framer-motion'
+import { cn } from '@/lib/utils'
 
 const suggestions = [
   { query: 'razer' },
@@ -52,17 +53,20 @@ export function SearchBar() {
   }
 
   return (
-    <MagicMotion>
+    <>
       <form
-        action="/search"
         onSubmit={onSearch}
         className={`${
           isModalOpen
-            ? 'absolute inset-x-4 top-3 z-10 border-2 sm:static'
+            ? 'absolute inset-x-4 top-3 z-10 rounded-b-none border-2 border-b-0 sm:static'
             : 'relative h-10'
-        } flex flex-1 flex-col overflow-hidden rounded-lg border border-input`}
+        } flex flex-1 rounded-lg border bg-card sm:max-w-[550px]`}
       >
-        <div className="relative w-full">
+        <div className="relative flex w-full items-center">
+          <div className="absolute inset-y-0 left-0 ml-3 flex items-center">
+            <Search className="h-5 w-5 text-muted-foreground" />
+          </div>
+
           <Input
             autoCorrect="off"
             spellCheck="false"
@@ -72,34 +76,35 @@ export function SearchBar() {
             onFocus={toggleModal}
             // onBlur={toggleModal}
             placeholder="Search for products..."
-            className="border-none"
+            className="border-0 bg-transparent pl-11"
           />
-          <div className="absolute inset-y-0 right-0 mr-3 flex items-center">
-            {isModalOpen ? (
+          {isModalOpen && (
+            <div className="absolute inset-y-0 right-0 mr-3 flex items-center">
               <button
-                className="text-sm hover:underline"
+                className="text-sm font-semibold text-primary hover:underline"
                 type="button"
                 onClick={toggleModal}
               >
                 Cancel
               </button>
-            ) : (
-              <Search className="h-4" />
-            )}
-          </div>
+            </div>
+          )}
         </div>
-        {isModalOpen && (
-          <ul className="bg-card py-4 pb-2">
+      </form>
+      {isModalOpen && (
+        <ul className="absolute inset-x-4 top-[3.25rem] rounded-b-lg border-2 border-t-0 bg-card sm:inset-x-0 sm:top-10 sm:mx-auto sm:max-w-[550px]">
+          <div className="px-4 py-2">
             {recentSearches.length === 0 ? (
               <>
-                <h2 className="px-4 pb-1 text-muted-foreground">Suggestions</h2>
+                <h2 className="mb-1 text-muted-foreground">Suggestions</h2>
                 {suggestions.map((suggestion) => (
                   <li key={suggestion.query}>
                     <Link
                       href={`/search?query=${suggestion.query}`}
                       onClick={() => handleRecentSearchClick(suggestion.query)}
-                      className="flex flex-1 px-4 py-2 hover:bg-background"
+                      className="-mx-4 flex flex-1 items-center gap-4 px-4 py-2 hover:bg-background"
                     >
+                      <Search className="h-4 w-4 text-muted-foreground" />
                       {suggestion.query}
                     </Link>
                   </li>
@@ -107,36 +112,34 @@ export function SearchBar() {
               </>
             ) : (
               <>
-                <h2 className="px-4 pb-1 text-muted-foreground">
-                  Recent Searches
-                </h2>
+                <h2 className="mb-1 text-muted-foreground">Recent searches</h2>
                 {recentSearches.map((query) => (
                   <li
-                    className="flex justify-between px-4 hover:bg-background"
+                    className="-mx-4 flex items-center justify-between px-4 hover:bg-background"
                     key={query}
                   >
                     <Link
-                      className="flex flex-1 items-center gap-2 py-2"
+                      className="flex flex-1 items-center gap-4 py-2"
                       href={`/search?query=${query}`}
                       onClick={() => handleRecentSearchClick(query)}
                     >
-                      <History className="h-4 w-4" />
+                      <History className="h-4 w-4 text-muted-foreground" />
                       {query}
                     </Link>
                     <button
                       type="button"
                       onClick={() => removeRecentSearch(query)}
-                      className="text-primary hover:underline"
+                      className="flex-none rounded-md border border-transparent p-1 text-primary hover:border-border hover:bg-card"
                     >
-                      Remover
+                      <X strokeWidth={2.5} className="h-4 w-4" />
                     </button>
                   </li>
                 ))}
               </>
             )}
-          </ul>
-        )}
-      </form>
-    </MagicMotion>
+          </div>
+        </ul>
+      )}
+    </>
   )
 }
