@@ -9,7 +9,7 @@ type FilterItemProps = LinkProps & {
   children: ReactNode
 }
 
-export function FilterItem({ href, children }: FilterItemProps) {
+export function DynamicTag({ href, children }: FilterItemProps) {
   const pathname = usePathname()
   const active = pathname === href
   const DynamicTag = active ? 'p' : Link
