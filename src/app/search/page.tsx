@@ -53,6 +53,10 @@ export default function SearchPage() {
     }
   }, [hasNextPage, inView, fetchNextPage])
 
+  const totalResults =
+    isSuccess &&
+    data.pages.reduce((total, page) => total + page.search.length, 0)
+
   if (isLoading)
     return (
       <>
@@ -72,10 +76,6 @@ export default function SearchPage() {
         </WrapperProduct>
       </>
     )
-
-  const totalResults =
-    isSuccess &&
-    data.pages.reduce((total, page) => total + page.search.length, 0)
 
   if (totalResults === 0) {
     return (

@@ -1,6 +1,6 @@
 import { prismaClient } from '@/lib/prisma'
 import { WrapperProduct } from '../components/wrapper-product'
-import { Prisma, Product } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 import { ProductCard } from '@/components/product-card'
 import { computeProductTotalPrice } from '@/lib/products'
 
@@ -45,7 +45,7 @@ export default async function CategoryProducts({
   })
 
   if (!category) {
-    return null
+    return <h2 className="text-center">Category not found</h2>
   }
 
   return (

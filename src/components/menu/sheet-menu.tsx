@@ -31,7 +31,7 @@ export function SheetMenu() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger className="transition-color group relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border bg-card">
+      <SheetTrigger className="group relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border bg-card transition-colors">
         <MenuIcon className="h-5 w-5 transition-colors group-hover:text-primary" />
       </SheetTrigger>
 

@@ -4,7 +4,7 @@ import { SheetMenu } from './menu/sheet-menu'
 import { Hydrate } from './hydrate'
 import { SearchBar } from './search-bar'
 import Image from 'next/image'
-import { Flower, Gamepad, Squirrel, Store } from 'lucide-react'
+import { Computer, Flower, Gamepad, Squirrel, Store } from 'lucide-react'
 
 const links = [
   { href: '/search', label: 'All' },
@@ -25,10 +25,10 @@ export function Header() {
             className="flex w-full items-center justify-center md:mr-2 md:w-auto lg:mr-6"
           >
             <div className="flex h-10 w-10 flex-none items-center justify-center rounded-xl border bg-card">
-              <Flower strokeWidth={1.5} className="h-5 w-5" />
+              <Computer strokeWidth={1.5} className="h-5 w-5" />
             </div>
             <div className="ml-2 hidden flex-none font-semibold uppercase lg:block">
-              FSW <span>Store</span>
+              THG <span>Store</span>
             </div>
           </Link>
           <ul className="hidden gap-6 font-medium md:flex md:items-center">

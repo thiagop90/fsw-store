@@ -13,10 +13,7 @@ const inter = Barlow({
 })
 
 export const metadata = {
-  title: {
-    default: 'FSW Store',
-    template: '%s |  FSW Store',
-  },
+  title: 'THG Store',
   viewport: { width: 'device-width', initialScale: 1, maximumScale: 1 },
 }
 
@@ -28,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <QueryWrapper>
-        <body className={`${inter.className}`}>
+        <body className={`${inter.className} `}>
           <AuthProvider>
             <div id="wrapper">
               <Header />

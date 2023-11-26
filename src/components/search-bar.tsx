@@ -1,14 +1,11 @@
 'use client'
 
 import { Input } from './ui/input'
-import { History, Search, Trash, Trash2, X } from 'lucide-react'
-import { FormEvent, useState } from 'react'
+import { History, Search, X } from 'lucide-react'
+import { FormEvent, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useSearchStore } from '@/store/search'
 import Link from 'next/link'
-import { MagicMotion, MagicExit } from 'react-magic-motion'
-import { motion, AnimatePresence } from 'framer-motion'
-import { cn } from '@/lib/utils'
 
 const suggestions = [
   { query: 'razer' },
@@ -27,6 +24,7 @@ export function SearchBar() {
     search ? search.get('query') : null,
   )
   const router = useRouter()
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const onSearch = (event: FormEvent) => {
     event.preventDefault()
@@ -40,6 +38,7 @@ export function SearchBar() {
     }
 
     setIsModalOpen(false)
+    inputRef.current?.blur()
   }
 
   const toggleModal = () => {
@@ -68,6 +67,7 @@ export function SearchBar() {
           </div>
 
           <Input
+            id="input-search"
             autoCorrect="off"
             spellCheck="false"
             type="search"
@@ -77,6 +77,7 @@ export function SearchBar() {
             // onBlur={toggleModal}
             placeholder="Search for products..."
             className="border-0 bg-transparent pl-11"
+            ref={inputRef}
           />
           {isModalOpen && (
             <div className="absolute inset-y-0 right-0 mr-3 flex items-center">
