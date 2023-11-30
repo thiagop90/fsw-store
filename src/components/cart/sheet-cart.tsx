@@ -8,13 +8,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { useCartStore } from '@/store/cart'
+import { useCartStore, useToggleCart } from '@/store/cart'
 import { ShoppingCart } from 'lucide-react'
 import { CartProduct } from './cart-product'
 import { ScrollArea } from '../ui/scroll-area'
 import { formatCurrency } from '@/lib/products'
 
 export function SheetCart() {
+  const { isOpenCart, toggleCart } = useToggleCart()
   const { cart, count, removeAll, subtotal, totalPrice, discount } =
     useCartStore()
 
@@ -25,7 +26,7 @@ export function SheetCart() {
   const itemText = cart.length > 1 ? 'items' : 'item'
 
   return (
-    <Sheet>
+    <Sheet open={isOpenCart} onOpenChange={toggleCart}>
       <SheetTrigger className="group relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border bg-card transition-colors">
         <ShoppingCart className="h-5 w-5 transition-colors group-hover:text-primary" />
         {cart.length > 0 && (

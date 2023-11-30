@@ -2,6 +2,11 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { ProductWithTotalPrice } from '../lib/products'
 
+type ToggleCart = {
+  isOpenCart: boolean
+  toggleCart: () => void
+}
+
 export type CartItem = ProductWithTotalPrice & {
   count: number
 }
@@ -17,6 +22,11 @@ type CartStore = {
   removeItemFromCart: (productId: string) => void
   removeAll: () => void
 }
+
+export const useToggleCart = create<ToggleCart>((set, get) => ({
+  isOpenCart: false,
+  toggleCart: () => set({ isOpenCart: !get().isOpenCart }),
+}))
 
 export const useCartStore = create<CartStore>()(
   persist(

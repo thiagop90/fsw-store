@@ -3,8 +3,7 @@ import { SheetCart } from './cart/sheet-cart'
 import { SheetMenu } from './menu/sheet-menu'
 import { Hydrate } from './hydrate'
 import { SearchBar } from './search-bar'
-import Image from 'next/image'
-import { Computer, Flower, Gamepad, Squirrel, Store } from 'lucide-react'
+import { Computer } from 'lucide-react'
 
 const links = [
   { href: '/search', label: 'All' },

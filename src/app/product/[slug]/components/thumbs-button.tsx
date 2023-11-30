@@ -1,6 +1,7 @@
+import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 
 type PropType = {
   selected: boolean
@@ -10,6 +11,11 @@ type PropType = {
 
 export function ThumbsButton(props: PropType) {
   const { selected, imgSrc, onClick } = props
+  const [imageLoaded, setImageLoaded] = useState(false)
+
+  const handleImageLoad = () => {
+    setImageLoaded(true)
+  }
 
   return (
     <li className="h-20 w-20">
@@ -23,13 +29,14 @@ export function ThumbsButton(props: PropType) {
         )}
         type="button"
       >
+        {!imageLoaded && <Skeleton className="h-full w-full" />}
         <Image
           src={imgSrc}
           alt={imgSrc}
-          width={0}
-          height={0}
-          sizes="100vw"
-          className="w-full object-contain transition duration-300 group-hover:scale-105"
+          width={80}
+          height={80}
+          className="object-contain transition duration-300 group-hover:scale-105"
+          onLoad={handleImageLoad}
         />
       </button>
     </li>

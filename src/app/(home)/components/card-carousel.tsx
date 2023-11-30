@@ -8,6 +8,7 @@ import { useCartStore } from '@/store/cart'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import { ContainerImage } from '@/components/container-image'
+import { DiscountBadge } from '@/components/discount-badge'
 
 type ProductItemProps = {
   product: ProductWithTotalPrice
@@ -42,9 +43,7 @@ export function CardCarousel({ product }: ProductItemProps) {
         </p>
 
         {product.discountPercentage > 0 && (
-          <Badge className="px-1">
-            <ArrowDown className="h-4 w-4" /> {product.discountPercentage}%
-          </Badge>
+          <DiscountBadge>{product.discountPercentage}</DiscountBadge>
         )}
       </div>
 

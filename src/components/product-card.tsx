@@ -1,13 +1,15 @@
 'use client'
 
 import { ProductWithTotalPrice, formatCurrency } from '@/lib/products'
-import { Badge } from '@/components/ui/badge'
-import { ArrowDown, ShoppingCart } from 'lucide-react'
+import { Loader, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
-import { useCartStore } from '@/store/cart'
+import { useCartStore, useToggleCart } from '@/store/cart'
 import { Button } from '@/components/ui/button'
-import { useToast } from '@/components/ui/use-toast'
 import { ContainerImage } from '@/components/container-image'
+import { DiscountBadge } from './discount-badge'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { cn } from '@/lib/utils'
 
 type ProductItemProps = {
   product: ProductWithTotalPrice
@@ -15,17 +17,23 @@ type ProductItemProps = {
 
 export function ProductCard({ product }: ProductItemProps) {
   const { addToCart } = useCartStore()
-  const { toast } = useToast()
+  const { toggleCart } = useToggleCart()
+  const [loading, setLoading] = useState(false)
+  const [itemAdded, setItemAdded] = useState(false)
 
   const formattedBasePrice = formatCurrency(Number(product.basePrice))
   const formattedTotalPrice = formatCurrency(product.totalPrice)
 
   const handleAddToCart = () => {
+    setLoading(true)
     addToCart(product)
-    // toast({
-    //   title: 'Produto adicionado ao carrinho',
-    //   description: `${product.name} foi adicionado.`,
-    // })
+    setTimeout(() => {
+      setLoading(false)
+      setItemAdded(true)
+      setTimeout(() => {
+        setItemAdded(false)
+      }, 3000)
+    }, 1100)
   }
 
   return (
@@ -38,9 +46,9 @@ export function ProductCard({ product }: ProductItemProps) {
           <ContainerImage imageUrl={product.imageUrls} />
         </div>
         {product.discountPercentage > 0 && (
-          <Badge className="absolute left-2 top-2 z-20 px-1.5 text-xs">
-            <ArrowDown className="h-4 w-4" /> {product.discountPercentage}%
-          </Badge>
+          <DiscountBadge className="absolute left-2 top-2 z-20">
+            {product.discountPercentage}
+          </DiscountBadge>
         )}
 
         <div className="z-20 flex flex-1 flex-col rounded-lg border bg-background/70 p-2 transition duration-300 group-hover:-translate-y-12">
@@ -63,9 +71,43 @@ export function ProductCard({ product }: ProductItemProps) {
         </div>
       </Link>
       <div className="absolute inset-x-0 bottom-0 translate-y-full px-2 pb-2 transition duration-300  group-hover:-translate-y-0">
-        <Button onClick={handleAddToCart} className="w-full gap-1">
-          Buy
-          <ShoppingCart className="h-4 w-4" strokeWidth="2.5" />
+        <Button
+          variant={itemAdded ? 'outline' : 'default'}
+          disabled={loading}
+          onClick={itemAdded ? toggleCart : handleAddToCart}
+          className="w-full transition-all duration-300"
+        >
+          {loading && (
+            <motion.span
+              initial={{ opacity: 0, y: 8 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                // transition: { duration: 0.3 },
+              }}
+              // exit={{ opacity: 0, y: 4 }}
+              className="flex items-center gap-1"
+            >
+              Adding...
+              <Loader className="h-4 w-4 animate-spin" strokeWidth="2.5" />
+            </motion.span>
+          )}
+          {!loading && (
+            <motion.span
+              initial={{ opacity: 1, y: -8 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+
+                // transition: { duration: 0.3 },
+              }}
+              // exit={{ opacity: 0, y: -4 }}
+              className={cn('flex items-center gap-1')}
+            >
+              {itemAdded ? 'View Cart' : 'Buy'}
+              <ShoppingCart className="h-4 w-4" strokeWidth="2.5" />
+            </motion.span>
+          )}
         </Button>
       </div>
     </li>

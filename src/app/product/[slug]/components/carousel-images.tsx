@@ -52,7 +52,7 @@ export function CarouselImages({ imageUrls }: ProductImagesProps) {
       className="relative h-full w-full basis-full overflow-hidden lg:basis-4/6"
       ref={emblaMainRef}
     >
-      <div className="flex aspect-square h-full max-h-[500px] w-full touch-pan-y backface-hidden">
+      <div className="flex aspect-square h-full max-h-[400px] w-full touch-pan-y backface-hidden">
         {imageUrls.map((imageUrl) => (
           <Image
             key={imageUrl}
@@ -67,7 +67,7 @@ export function CarouselImages({ imageUrls }: ProductImagesProps) {
           />
         ))}
       </div>
-      {/* <div className="absolute bottom-[35%] flex w-full justify-center">
+      {/* <div className="absolute bottom-24 flex w-full justify-center">
         <div className="mx-auto flex h-11 items-center rounded-full border bg-background/80 backdrop-blur">
           <button
             onClick={scrollPrev}
@@ -84,18 +84,19 @@ export function CarouselImages({ imageUrls }: ProductImagesProps) {
           </button>
         </div>
       </div> */}
-      <ul className="my-12">
-        <div className="overflow-hidden" ref={emblaThumbsRef}>
-          <div className="flex items-center justify-center space-x-3">
-            {imageUrls.map((imageUrl, index) => (
-              <ThumbsButton
-                onClick={() => onThumbClick(index)}
-                selected={index === selectedIndex}
-                imgSrc={imageUrl}
-                key={imageUrl}
-              />
-            ))}
-          </div>
+      <ul
+        className="my-12 overflow-hidden px-4 sm:px-0 lg:mb-0"
+        ref={emblaThumbsRef}
+      >
+        <div className="flex items-center justify-center space-x-3">
+          {imageUrls.map((imageUrl, index) => (
+            <ThumbsButton
+              onClick={() => onThumbClick(index)}
+              selected={index === selectedIndex}
+              imgSrc={imageUrl}
+              key={imageUrl}
+            />
+          ))}
         </div>
       </ul>
     </div>
