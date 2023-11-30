@@ -6,7 +6,7 @@ import { ProductWithTotalPrice, formatCurrency } from '@/lib/products'
 import { CartItem } from '@/store/cart'
 
 type ProductInfoType = {
-  product: CartItem
+  product: ProductWithTotalPrice
 }
 
 export function ProductInfo({ product }: ProductInfoType) {
