@@ -5,6 +5,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Button } from '../ui/button'
 import { LogIn, LogOut } from 'lucide-react'
+import Image from 'next/image'
 
 export function StatusAuthenticated() {
   const { status, data } = useSession()
@@ -20,13 +21,15 @@ export function StatusAuthenticated() {
   return (
     <>
       {status === 'unauthenticated' && (
-        <Button
-          onClick={handleLoginClick}
-          variant="outline"
-          className="justify-start gap-2"
-        >
-          <LogIn className="h-4 w-4" />
-          Fazer Login
+        <Button onClick={handleLoginClick} variant="outline" className="gap-2">
+          <Image
+            src="/google-logo.svg"
+            alt="Google Logo"
+            width={16}
+            height={16}
+            className="h-4 w-4"
+          />
+          Continue with Google
         </Button>
       )}
 

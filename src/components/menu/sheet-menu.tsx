@@ -1,6 +1,6 @@
 'use client'
 
-import { MenuIcon } from 'lucide-react'
+import { Keyboard, LayoutGrid, MenuIcon, Mouse } from 'lucide-react'
 import {
   Sheet,
   SheetClose,
@@ -12,10 +12,19 @@ import {
 import Link from 'next/link'
 import { StatusAuthenticated } from './status-authenticated'
 import { useEffect, useState } from 'react'
+
 const links = [
-  { href: '/search', label: 'All' },
-  { href: '/search/mices', label: 'Mices' },
-  { href: '/search/keyboards', label: 'Keyboards' },
+  { href: '/search', label: 'All', icon: <LayoutGrid className="h-4 w-4" /> },
+  {
+    href: '/search/mices',
+    label: 'Mices',
+    icon: <Mouse className="h-4 w-4" />,
+  },
+  {
+    href: '/search/keyboards',
+    label: 'Keyboards',
+    icon: <Keyboard className="h-4 w-4" />,
+  },
 ]
 
 export function SheetMenu() {
@@ -40,19 +49,20 @@ export function SheetMenu() {
           Menu
         </SheetHeader>
 
-        <div className="mt-4 flex flex-col gap-2">
+        <div className="mt-4 flex flex-col gap-8">
           <StatusAuthenticated />
 
-          <ul className="flex w-full flex-col">
+          <ul className="flex w-full flex-col border-t py-6">
             {links.map((link, index) => (
-              <li
-                key={index}
-                className="py-2 text-xl font-medium hover:text-muted-foreground"
-              >
-                <SheetClose asChild>
-                  <Link href={link.href}>{link.label}</Link>
-                </SheetClose>
-              </li>
+              <SheetClose key={index} asChild>
+                <Link
+                  className="flex items-center gap-3 py-2 text-xl font-medium hover:text-muted-foreground"
+                  href={link.href}
+                >
+                  {link.icon}
+                  {link.label}
+                </Link>
+              </SheetClose>
             ))}
           </ul>
         </div>

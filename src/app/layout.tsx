@@ -25,16 +25,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <QueryWrapper>
-        <body className={`${inter.className} `}>
-          <AuthProvider>
+        <AuthProvider>
+          <body className={inter.className}>
             <div id="wrapper">
               <Header />
               <main className="min-h-[100dvh] px-4">{children}</main>
               <Footer />
-              <Toaster />
             </div>
-          </AuthProvider>
-        </body>
+          </body>
+        </AuthProvider>
       </QueryWrapper>
     </html>
   )

@@ -19,20 +19,16 @@ export function ProductCard({ product }: ProductItemProps) {
   const { addToCart } = useCartStore()
   const { toggleCart } = useToggleCart()
   const [loading, setLoading] = useState(false)
-  const [itemAdded, setItemAdded] = useState(false)
 
   const formattedBasePrice = formatCurrency(Number(product.basePrice))
   const formattedTotalPrice = formatCurrency(product.totalPrice)
 
   const handleAddToCart = () => {
     setLoading(true)
-    addToCart(product)
     setTimeout(() => {
       setLoading(false)
-      setItemAdded(true)
-      setTimeout(() => {
-        setItemAdded(false)
-      }, 3000)
+      addToCart(product)
+      toggleCart()
     }, 1100)
   }
 
@@ -72,41 +68,15 @@ export function ProductCard({ product }: ProductItemProps) {
       </Link>
       <div className="absolute inset-x-0 bottom-0 translate-y-full px-2 pb-2 transition duration-300  group-hover:-translate-y-0">
         <Button
-          variant={itemAdded ? 'outline' : 'default'}
           disabled={loading}
-          onClick={itemAdded ? toggleCart : handleAddToCart}
-          className="w-full transition-all duration-300"
+          onClick={handleAddToCart}
+          className="w-full gap-1 transition-all duration-300"
         >
-          {loading && (
-            <motion.span
-              initial={{ opacity: 0, y: 8 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                // transition: { duration: 0.3 },
-              }}
-              // exit={{ opacity: 0, y: 4 }}
-              className="flex items-center gap-1"
-            >
-              Adding...
-              <Loader className="h-4 w-4 animate-spin" strokeWidth="2.5" />
-            </motion.span>
-          )}
-          {!loading && (
-            <motion.span
-              initial={{ opacity: 1, y: -8 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-
-                // transition: { duration: 0.3 },
-              }}
-              // exit={{ opacity: 0, y: -4 }}
-              className={cn('flex items-center gap-1')}
-            >
-              {itemAdded ? 'View Cart' : 'Buy'}
-              <ShoppingCart className="h-4 w-4" strokeWidth="2.5" />
-            </motion.span>
+          {loading ? 'Adding...' : 'Buy'}
+          {loading ? (
+            <Loader className="h-4 w-4 animate-spin" strokeWidth="2.5" />
+          ) : (
+            <ShoppingCart className="h-4 w-4" strokeWidth="2.5" />
           )}
         </Button>
       </div>
