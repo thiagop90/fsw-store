@@ -41,7 +41,7 @@ export const NextButton = (props: ArrowButtonType) => {
   const { ...restProps } = props
 
   return (
-    <div className="absolute inset-y-px right-0 hidden items-center gap-2 bg-gradient-to-l from-card  px-4 md:flex">
+    <div className="absolute inset-y-px right-0 hidden items-center gap-2 bg-gradient-to-l from-card px-4 md:flex">
       <ArrowButton {...restProps}>
         <ChevronRight className="h-4 w-4 group-hover:text-primary" />
       </ArrowButton>

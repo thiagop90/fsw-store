@@ -1,36 +1,18 @@
 'use client'
 
-import { ProductWithTotalPrice, formatCurrency } from '@/lib/products'
-import { Loader, ShoppingCart } from 'lucide-react'
+import { ProductWithTotalPrice, formatCurrency } from '@/helpers/products'
 import Link from 'next/link'
-import { useCartStore, useToggleCart } from '@/store/cart'
-import { Button } from '@/components/ui/button'
 import { ContainerImage } from '@/components/container-image'
 import { DiscountBadge } from './discount-badge'
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { cn } from '@/lib/utils'
+import { AddToCartButton } from './add-to-cart-button'
 
 type ProductItemProps = {
   product: ProductWithTotalPrice
 }
 
 export function ProductCard({ product }: ProductItemProps) {
-  const { addToCart } = useCartStore()
-  const { toggleCart } = useToggleCart()
-  const [loading, setLoading] = useState(false)
-
   const formattedBasePrice = formatCurrency(Number(product.basePrice))
   const formattedTotalPrice = formatCurrency(product.totalPrice)
-
-  const handleAddToCart = () => {
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      addToCart(product)
-      toggleCart()
-    }, 1100)
-  }
 
   return (
     <li className="group relative animate-fadeIn overflow-hidden border-b border-r bg-card transition-opacity">
@@ -67,18 +49,7 @@ export function ProductCard({ product }: ProductItemProps) {
         </div>
       </Link>
       <div className="absolute inset-x-0 bottom-0 translate-y-full px-2 pb-2 transition duration-300  group-hover:-translate-y-0">
-        <Button
-          disabled={loading}
-          onClick={handleAddToCart}
-          className="w-full gap-1 transition-all duration-300"
-        >
-          {loading ? 'Adding...' : 'Buy'}
-          {loading ? (
-            <Loader className="h-4 w-4 animate-spin" strokeWidth="2.5" />
-          ) : (
-            <ShoppingCart className="h-4 w-4" strokeWidth="2.5" />
-          )}
-        </Button>
+        <AddToCartButton product={product} />
       </div>
     </li>
   )

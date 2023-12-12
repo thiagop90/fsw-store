@@ -1,6 +1,6 @@
 import { prismaClient } from '@/lib/prisma'
 import { CarouselImages } from './components/carousel-images'
-import { computeProductTotalPrice, formatCurrency } from '@/lib/products'
+import { computeProductTotalPrice, formatCurrency } from '@/helpers/products'
 import { Badge } from '@/components/ui/badge'
 import { ArrowDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'

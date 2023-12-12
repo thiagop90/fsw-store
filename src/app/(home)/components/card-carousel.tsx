@@ -1,6 +1,6 @@
 'use client'
 
-import { ProductWithTotalPrice, formatCurrency } from '@/lib/products'
+import { ProductWithTotalPrice, formatCurrency } from '@/helpers/products'
 import { Badge } from '@/components/ui/badge'
 import { ArrowDown, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'

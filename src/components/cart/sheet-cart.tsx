@@ -9,15 +9,29 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { useCartStore, useToggleCart } from '@/store/cart'
-import { ShoppingCart } from 'lucide-react'
+import { Loader, ShoppingCart } from 'lucide-react'
 import { CartProduct } from './cart-product'
 import { ScrollArea } from '../ui/scroll-area'
-import { formatCurrency } from '@/lib/products'
+import { formatCurrency } from '@/helpers/products'
+import { createCheckout } from '@/actions/checkout'
+import { loadStripe } from '@stripe/stripe-js'
+import { useState } from 'react'
 
 export function SheetCart() {
   const { isOpenCart, toggleCart } = useToggleCart()
-  const { cart, count, removeAll, subtotal, totalPrice, discount } =
-    useCartStore()
+  const { cart, removeAll, subtotal, totalPrice, discount } = useCartStore()
+  const [isProcessing, setIsProcessing] = useState(false)
+
+  const handleFinishPurchaseClick = async () => {
+    setIsProcessing(true)
+
+    const checkout = await createCheckout(cart)
+    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY)
+
+    stripe?.redirectToCheckout({
+      sessionId: checkout.id,
+    })
+  }
 
   const formattedSubtotal = formatCurrency(subtotal())
   const formattedDiscount = formatCurrency(discount())
@@ -31,7 +45,7 @@ export function SheetCart() {
         <ShoppingCart className="h-5 w-5 transition-colors group-hover:text-primary" />
         {cart.length > 0 && (
           <div className="absolute right-0 top-0 -mr-2 -mt-2 h-4 w-4 rounded bg-primary text-xs font-semibold">
-            {count()}
+            {cart.length}
           </div>
         )}
       </SheetTrigger>
@@ -79,7 +93,20 @@ export function SheetCart() {
               </div>
             </div>
             <div className="px-6 pb-6">
-              <Button className="w-full">Finalizar compra</Button>
+              <Button
+                className="w-full"
+                onClick={handleFinishPurchaseClick}
+                disabled={isProcessing}
+              >
+                {isProcessing ? (
+                  <>
+                    Processing...
+                    <Loader className="ml-1 h-4 w-4 animate-spin" />
+                  </>
+                ) : (
+                  'Finalize purchase'
+                )}
+              </Button>
             </div>
           </div>
         )}

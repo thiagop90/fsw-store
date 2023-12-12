@@ -14,16 +14,16 @@ import { StatusAuthenticated } from './status-authenticated'
 import { useEffect, useState } from 'react'
 
 const links = [
-  { href: '/search', label: 'All', icon: <LayoutGrid className="h-4 w-4" /> },
+  { href: '/search', label: 'All', icon: <LayoutGrid className="h-5 w-5" /> },
   {
     href: '/search/mices',
     label: 'Mices',
-    icon: <Mouse className="h-4 w-4" />,
+    icon: <Mouse className="h-5 w-5" />,
   },
   {
     href: '/search/keyboards',
     label: 'Keyboards',
-    icon: <Keyboard className="h-4 w-4" />,
+    icon: <Keyboard className="h-5 w-5" />,
   },
 ]
 

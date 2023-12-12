@@ -1,31 +1,12 @@
-'use client'
-
+import { AddToCartButton } from '@/components/add-to-cart-button'
 import { DiscountBadge } from '@/components/discount-badge'
-import { QuantityControl } from '@/components/quantity-control'
-import { Button } from '@/components/ui/button'
-import { ProductWithTotalPrice, formatCurrency } from '@/lib/products'
-import { CartItem, useCartStore, useToggleCart } from '@/store/cart'
-import { Loader, ShoppingCart } from 'lucide-react'
-import { useState } from 'react'
+import { ProductWithTotalPrice, formatCurrency } from '@/helpers/products'
 
 type ProductInfoType = {
   product: ProductWithTotalPrice
 }
 
 export function ProductInfo({ product }: ProductInfoType) {
-  const { addToCart } = useCartStore()
-  const { toggleCart } = useToggleCart()
-  const [loading, setLoading] = useState(false)
-
-  const handleAddToCart = () => {
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      addToCart(product)
-      toggleCart()
-    }, 1100)
-  }
-
   const formattedBasePrice = formatCurrency(Number(product.basePrice))
   const formattedTotalPrice = formatCurrency(Number(product.totalPrice))
 
@@ -60,14 +41,7 @@ export function ProductInfo({ product }: ProductInfoType) {
       <h2 className="mb-6 text-sm leading-relaxed text-muted-foreground">
         {truncatedDescription}
       </h2>
-      <Button className="gap-1" disabled={loading} onClick={handleAddToCart}>
-        {loading ? 'Adding...' : 'Add To Cart'}
-        {loading ? (
-          <Loader className="h-4 w-4 animate-spin" strokeWidth="2.5" />
-        ) : (
-          <ShoppingCart className="h-4 w-4" strokeWidth="2.5" />
-        )}
-      </Button>
+      <AddToCartButton product={product} />
     </div>
   )
 }

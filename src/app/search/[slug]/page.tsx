@@ -2,7 +2,7 @@ import { prismaClient } from '@/lib/prisma'
 import { WrapperProduct } from '../components/wrapper-product'
 import { Prisma } from '@prisma/client'
 import { ProductCard } from '@/components/product-card'
-import { computeProductTotalPrice } from '@/lib/products'
+import { computeProductTotalPrice } from '@/helpers/products'
 
 type CategoryItemProps = {
   params: {

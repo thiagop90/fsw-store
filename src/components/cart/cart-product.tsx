@@ -2,7 +2,7 @@ import { CartItem } from '@/store/cart'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SheetTrigger } from '../ui/sheet'
-import { formatCurrency } from '@/lib/products'
+import { formatCurrency } from '@/helpers/products'
 import { QuantityControl } from '../quantity-control'
 import { ButtonRemoveItem } from './button-remove-item'
 

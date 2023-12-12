@@ -12,7 +12,7 @@ import useEmblaCarousel, {
   EmblaOptionsType,
 } from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
-import { computeProductTotalPrice } from '@/lib/products'
+import { computeProductTotalPrice } from '@/helpers/products'
 import { Product } from '@prisma/client'
 import { CardCarousel } from './card-carousel'
 import { cn } from '@/lib/utils'
@@ -74,7 +74,7 @@ export const CarouselProducts = forwardRef<HTMLDivElement, ProductListProps>(
         {progressBar && (
           <div className="pointer-events-none relative inset-x-0 mx-auto mt-4 flex h-1.5 w-56 max-w-[90%] overflow-hidden rounded-full border bg-card">
             <div
-              className="absolute inset-y-0 -left-full bottom-0 w-full bg-primary"
+              className="absolute inset-y-0 -left-full w-full bg-primary"
               style={{ transform: `translate3d(${scrollProgress}%,0px,0px)` }}
             />
           </div>

@@ -31,7 +31,9 @@ export function SortList() {
           <li className="mt-2 shrink-0" key={option.param}>
             <Link
               className={cn('w-full hover:underline hover:underline-offset-4', {
-                'underline underline-offset-4': sortQuery === option.param,
+                'underline underline-offset-4':
+                  sortQuery === option.param ||
+                  (!sortQuery && option.param === ''),
               })}
               href={buildSortUrl(option.param)}
             >

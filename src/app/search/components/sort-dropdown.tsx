@@ -59,9 +59,9 @@ export function SortDropdown({ sortOptions }: SortDropdownProps) {
       <AnimatePresence>
         {openSelect && (
           <motion.div
-            initial={{ opacity: 0, y: -40 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -40 }}
+            exit={{ opacity: 0, y: -8 }}
             onClick={() => {
               setOpenSelect(false)
             }}
@@ -74,7 +74,8 @@ export function SortDropdown({ sortOptions }: SortDropdownProps) {
                     'w-full hover:underline hover:underline-offset-4',
                     {
                       'underline underline-offset-4':
-                        sortQuery === option.param,
+                        sortQuery === option.param ||
+                        (!sortQuery && option.param === ''),
                     },
                   )}
                   href={buildSortUrl(option.param)}
