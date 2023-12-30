@@ -8,7 +8,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { useCartStore, useToggleCart } from '@/store/cart'
+import { useCartStore, useOpenCart } from '@/store/cart'
 import { Loader, ShoppingCart } from 'lucide-react'
 import { CartProduct } from './cart-product'
 import { ScrollArea } from '../ui/scroll-area'
@@ -18,7 +18,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import { useState } from 'react'
 
 export function SheetCart() {
-  const { isOpenCart, toggleCart } = useToggleCart()
+  const { isOpenCart, toggleCart } = useOpenCart()
   const { cart, removeAll, subtotal, totalPrice, discount } = useCartStore()
   const [isProcessing, setIsProcessing] = useState(false)
 
@@ -41,7 +41,7 @@ export function SheetCart() {
 
   return (
     <Sheet open={isOpenCart} onOpenChange={toggleCart}>
-      <SheetTrigger className="group relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border bg-card transition-colors">
+      <SheetTrigger className="group relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border bg-background transition-colors">
         <ShoppingCart className="h-5 w-5 transition-colors group-hover:text-primary" />
         {cart.length > 0 && (
           <div className="absolute right-0 top-0 -mr-2 -mt-2 h-4 w-4 rounded bg-primary text-xs font-semibold">

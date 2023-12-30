@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { SheetCart } from './cart/sheet-cart'
-import { SheetMenu } from './menu/sheet-menu'
+import { PopoverMenu } from './menu/popover-menu'
 import { Hydrate } from './hydrate'
 import { SearchBar } from './search-bar'
 import { Computer } from 'lucide-react'
@@ -16,9 +16,9 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full bg-background/75 backdrop-blur">
       <div className="flex h-16 items-center gap-3 px-4 lg:px-6">
         <div className="block flex-none md:hidden">
-          <SheetMenu />
+          <PopoverMenu />
         </div>
-        <div className="flex md:w-1/3">
+        <div className="mx-auto flex md:w-1/3">
           <Link
             href="/"
             className="flex w-full items-center justify-center md:mr-3 md:w-auto lg:mr-6"
@@ -26,7 +26,7 @@ export function Header() {
             <div className="flex h-10 w-10 flex-none items-center justify-center rounded-xl border bg-card">
               <Computer strokeWidth={1.5} className="h-5 w-5" />
             </div>
-            <div className="ml-3 hidden flex-none font-semibold uppercase lg:block">
+            <div className="ml-3 flex-none font-semibold uppercase md:hidden lg:block">
               THG <span>Store</span>
             </div>
           </Link>
@@ -43,7 +43,7 @@ export function Header() {
             ))}
           </ul>
         </div>
-        <div className="flex w-full justify-center sm:relative lg:mx-auto lg:w-1/3">
+        <div className="hidden w-full justify-center md:flex lg:mx-auto lg:w-1/3">
           <SearchBar />
         </div>
         <div className="flex justify-end lg:w-1/3">

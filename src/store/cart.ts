@@ -7,6 +7,11 @@ type ToggleCart = {
   toggleCart: () => void
 }
 
+export const useOpenCart = create<ToggleCart>((set, get) => ({
+  isOpenCart: false,
+  toggleCart: () => set({ isOpenCart: !get().isOpenCart }),
+}))
+
 export type CartItem = ProductWithTotalPrice & {
   count: number
 }
@@ -22,11 +27,6 @@ type CartStore = {
   removeItemFromCart: (productId: string) => void
   removeAll: () => void
 }
-
-export const useToggleCart = create<ToggleCart>((set, get) => ({
-  isOpenCart: false,
-  toggleCart: () => set({ isOpenCart: !get().isOpenCart }),
-}))
 
 export const useCartStore = create<CartStore>()(
   persist(

@@ -28,7 +28,7 @@ export function SearchBar() {
   return (
     <form
       onSubmit={onSearch}
-      className=" relative flex h-10 flex-1 rounded-lg border bg-card sm:max-w-[550px]"
+      className="relative flex h-10 flex-1 rounded-lg border bg-background sm:max-w-[550px]"
     >
       <div className="relative flex w-full items-center">
         <div className="absolute inset-y-0 left-0 ml-3 flex items-center">

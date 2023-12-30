@@ -1,6 +1,6 @@
 'use client'
 
-import { useCartStore, useToggleCart } from '@/store/cart'
+import { useCartStore, useOpenCart } from '@/store/cart'
 import { Button } from './ui/button'
 import { useState } from 'react'
 import { ProductWithTotalPrice } from '@/helpers/products'
@@ -12,7 +12,7 @@ type AddToCartButtonType = {
 
 export function AddToCartButton({ product }: AddToCartButtonType) {
   const { addToCart } = useCartStore()
-  const { toggleCart } = useToggleCart()
+  const { toggleCart } = useOpenCart()
   const [loading, setLoading] = useState(false)
 
   const handleAddToCart = () => {

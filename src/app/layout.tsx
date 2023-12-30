@@ -27,11 +27,9 @@ export default function RootLayout({
       <QueryWrapper>
         <AuthProvider>
           <body className={inter.className}>
-            <div id="wrapper">
-              <Header />
-              <main className="min-h-[100dvh] px-4">{children}</main>
-              <Footer />
-            </div>
+            <Header />
+            <main className="min-h-[100dvh] px-4">{children}</main>
+            <Footer />
           </body>
         </AuthProvider>
       </QueryWrapper>
