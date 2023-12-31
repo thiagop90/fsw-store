@@ -1,9 +1,13 @@
+'use client'
+
 import Link from 'next/link'
 import { SheetCart } from './cart/sheet-cart'
 import { PopoverMenu } from './menu/popover-menu'
 import { Hydrate } from './hydrate'
 import { SearchBar } from './search-bar'
 import { Computer, Search } from 'lucide-react'
+import { useSearchBar } from '@/store/search-bar'
+import { cn } from '@/lib/utils'
 
 const links = [
   { href: '/search', label: 'All' },
@@ -12,13 +16,15 @@ const links = [
 ]
 
 export function Header() {
+  const { openSearchBar } = useSearchBar()
+
   return (
     <header className="sticky top-0 z-50 w-full bg-background/75 backdrop-blur">
       <div className="flex h-16 items-center gap-3 px-4 lg:px-6">
         <div className="block flex-none md:hidden">
           <PopoverMenu />
         </div>
-        <div className="flex md:w-1/3">
+        <div className={cn('md:flex md:w-1/3', { hidden: openSearchBar })}>
           <Link
             href="/"
             className="w-fulL flex items-center justify-center md:mr-3 md:w-auto lg:mr-6"
@@ -26,7 +32,7 @@ export function Header() {
             <div className="flex h-10 w-10 flex-none items-center justify-center rounded-xl border bg-card">
               <Computer strokeWidth={1.5} className="h-5 w-5" />
             </div>
-            <div className="ml-3 hidden flex-none font-semibold uppercase md:hidden lg:block">
+            <div className="ml-3 flex-none font-semibold uppercase md:hidden lg:block">
               THG <span>Store</span>
             </div>
           </Link>
@@ -47,7 +53,6 @@ export function Header() {
           <SearchBar />
         </div>
         <div className="flex justify-end gap-3 lg:w-1/3">
-          {/* <SearchMobile /> */}
           <Hydrate>
             <SheetCart />
           </Hydrate>
