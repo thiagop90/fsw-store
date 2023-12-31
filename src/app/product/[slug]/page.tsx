@@ -47,7 +47,7 @@ export default async function ProductDetailsPage({
         <ProductInfo product={computeProductTotalPrice(product)} />
       </div>
       <div className="py-8">
-        <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
+        <h2 className="mb-4 text-2xl font-semibold">Related Products</h2>
         <CarouselProducts products={product.category.products} />
       </div>
     </div>

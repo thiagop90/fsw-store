@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import { PropsWithChildren } from 'react'
 
 type ArrowButtonType = PropsWithChildren<
@@ -14,7 +14,7 @@ const ArrowButton = (props: ArrowButtonType) => {
 
   return (
     <Button
-      className="group h-8 w-8 rounded bg-background/80 backdrop-blur-sm"
+      className="group h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm"
       size="icon"
       variant="outline"
       type="button"
@@ -31,7 +31,7 @@ export function PrevButton(props: ArrowButtonType) {
   return (
     <div className="absolute inset-y-0 left-0 hidden items-center gap-2 px-4 md:flex">
       <ArrowButton {...restProps}>
-        <ChevronLeft className="h-4 w-4 group-hover:text-primary" />
+        <ArrowLeft className="h-4 w-4" />
       </ArrowButton>
     </div>
   )
@@ -41,9 +41,9 @@ export const NextButton = (props: ArrowButtonType) => {
   const { ...restProps } = props
 
   return (
-    <div className="absolute inset-y-px right-0 hidden items-center gap-2 bg-gradient-to-l from-card px-4 md:flex">
+    <div className="absolute inset-y-0 right-0 hidden items-center gap-2 px-4 md:flex">
       <ArrowButton {...restProps}>
-        <ChevronRight className="h-4 w-4 group-hover:text-primary" />
+        <ArrowRight className="h-4 w-4" />
       </ArrowButton>
     </div>
   )

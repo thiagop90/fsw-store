@@ -3,7 +3,7 @@ import { SheetCart } from './cart/sheet-cart'
 import { PopoverMenu } from './menu/popover-menu'
 import { Hydrate } from './hydrate'
 import { SearchBar } from './search-bar'
-import { Computer } from 'lucide-react'
+import { Computer, Search } from 'lucide-react'
 
 const links = [
   { href: '/search', label: 'All' },
@@ -18,15 +18,15 @@ export function Header() {
         <div className="block flex-none md:hidden">
           <PopoverMenu />
         </div>
-        <div className="mx-auto flex md:w-1/3">
+        <div className="flex md:w-1/3">
           <Link
             href="/"
-            className="flex w-full items-center justify-center md:mr-3 md:w-auto lg:mr-6"
+            className="w-fulL flex items-center justify-center md:mr-3 md:w-auto lg:mr-6"
           >
             <div className="flex h-10 w-10 flex-none items-center justify-center rounded-xl border bg-card">
               <Computer strokeWidth={1.5} className="h-5 w-5" />
             </div>
-            <div className="ml-3 flex-none font-semibold uppercase md:hidden lg:block">
+            <div className="ml-3 hidden flex-none font-semibold uppercase md:hidden lg:block">
               THG <span>Store</span>
             </div>
           </Link>
@@ -43,10 +43,11 @@ export function Header() {
             ))}
           </ul>
         </div>
-        <div className="hidden w-full justify-center md:flex lg:mx-auto lg:w-1/3">
+        <div className="flex flex-1 justify-end lg:mx-auto lg:w-1/3 lg:justify-center">
           <SearchBar />
         </div>
-        <div className="flex justify-end lg:w-1/3">
+        <div className="flex justify-end gap-3 lg:w-1/3">
+          {/* <SearchMobile /> */}
           <Hydrate>
             <SheetCart />
           </Hydrate>

@@ -41,8 +41,8 @@ export function SheetCart() {
 
   return (
     <Sheet open={isOpenCart} onOpenChange={toggleCart}>
-      <SheetTrigger className="group relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border bg-background transition-colors">
-        <ShoppingCart className="h-5 w-5 transition-colors group-hover:text-primary" />
+      <SheetTrigger className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border bg-background transition-colors hover:bg-muted">
+        <ShoppingCart className="h-5 w-5" />
         {cart.length > 0 && (
           <div className="absolute right-0 top-0 -mr-2 -mt-2 h-4 w-4 rounded bg-primary text-xs font-semibold">
             {cart.length}

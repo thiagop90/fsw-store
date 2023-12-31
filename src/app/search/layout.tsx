@@ -19,7 +19,7 @@ export default function SearchLayout({
         <div className="h-full w-full flex-none md:sticky md:top-16 md:z-40 md:order-first md:max-w-[125px]">
           <CategoriesList />
         </div>
-        <div className=" order-last min-h-screen w-full md:order-none">
+        <div className="order-last -mx-px min-h-screen w-full sm:mx-0 md:order-none">
           {children}
         </div>
         <div className="order-none h-full flex-none md:sticky md:top-16 md:z-40 md:order-last md:w-[135px]">
