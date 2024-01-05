@@ -16,8 +16,11 @@ import { formatCurrency } from '@/helpers/products'
 import { createCheckout } from '@/actions/checkout'
 import { loadStripe } from '@stripe/stripe-js'
 import { useState } from 'react'
+import { signIn, useSession } from 'next-auth/react'
+import { createOrder } from '@/actions/order'
 
 export function SheetCart() {
+  const { data } = useSession()
   const { isOpenCart, toggleCart } = useOpenCart()
   const { cart, removeAll, subtotal, totalPrice, discount } = useCartStore()
   const [isProcessing, setIsProcessing] = useState(false)
@@ -25,7 +28,14 @@ export function SheetCart() {
   const handleFinishPurchaseClick = async () => {
     setIsProcessing(true)
 
-    const checkout = await createCheckout(cart)
+    if (!data?.user) {
+      await signIn('google')
+      return
+    }
+
+    const order = await createOrder(cart, (data?.user as any).id)
+
+    const checkout = await createCheckout(cart, order.id)
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY)
 
     stripe?.redirectToCheckout({
@@ -44,9 +54,9 @@ export function SheetCart() {
       <SheetTrigger className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border bg-background transition-colors hover:bg-muted">
         <ShoppingCart className="h-5 w-5" />
         {cart.length > 0 && (
-          <div className="absolute right-0 top-0 -mr-2 -mt-2 h-4 w-4 rounded bg-primary text-xs font-semibold">
+          <span className="absolute right-0 top-0 -mr-2 -mt-2 h-4 w-4 rounded bg-primary text-xs font-semibold">
             {cart.length}
-          </div>
+          </span>
         )}
       </SheetTrigger>
       <SheetContent className="flex w-full flex-col gap-0 p-0">
@@ -92,11 +102,11 @@ export function SheetCart() {
                 <p className="text-right">{formattedTotalPriceWithDiscount}</p>
               </div>
             </div>
-            <div className="px-6 pb-6">
+            <div className="space-y-2 px-6 pb-6">
               <Button
                 className="w-full"
                 onClick={handleFinishPurchaseClick}
-                disabled={isProcessing}
+                disabled={isProcessing || !data?.user}
               >
                 {isProcessing ? (
                   <>
@@ -104,9 +114,20 @@ export function SheetCart() {
                     <Loader className="ml-1 h-4 w-4 animate-spin" />
                   </>
                 ) : (
-                  'Finalize purchase'
+                  'Checkout'
                 )}
               </Button>
+              {!data?.user && (
+                <p className="text-center">
+                  <span
+                    onClick={() => signIn('google')}
+                    className="cursor-pointer font-semibold text-primary underline"
+                  >
+                    Log in
+                  </span>{' '}
+                  to your Google account to proceed.
+                </p>
+              )}
             </div>
           </div>
         )}

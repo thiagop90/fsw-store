@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 
-type SearchBar = {
-  openSearchBar: boolean
+type SearchBarState = {
+  isOpen: boolean
   toggleSearchBar: () => void
 }
 
-export const useSearchBar = create<SearchBar>((set, get) => ({
-  openSearchBar: false,
-  toggleSearchBar: () => set({ openSearchBar: !get().openSearchBar }),
+export const useSearchBar = create<SearchBarState>((set, get) => ({
+  isOpen: false,
+  toggleSearchBar: () => set({ isOpen: !get().isOpen }),
 }))

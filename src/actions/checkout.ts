@@ -1,9 +1,9 @@
 'use server'
 
-import { CartItem } from '@/store/cart'
+import { CartProduct } from '@/store/cart'
 import Stripe from 'stripe'
 
-export async function createCheckout(products: CartItem[]) {
+export async function createCheckout(products: CartProduct[], orderId: string) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
     apiVersion: '2023-10-16',
   })
@@ -11,8 +11,11 @@ export async function createCheckout(products: CartItem[]) {
   const checkout = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     mode: 'payment',
-    success_url: 'http://localhost:3000',
-    cancel_url: 'http://localhost:3000',
+    success_url: process.env.HOST_URL,
+    cancel_url: process.env.HOST_URL,
+    metadata: {
+      orderId,
+    },
     line_items: products.map((product) => {
       return {
         price_data: {
@@ -24,7 +27,7 @@ export async function createCheckout(products: CartItem[]) {
           },
           unit_amount: Math.round(product.totalPrice * 100),
         },
-        quantity: product.count,
+        quantity: product.quantity,
       }
     }),
   })

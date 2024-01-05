@@ -1,4 +1,4 @@
-import { CartItem } from '@/store/cart'
+import { CartProduct } from '@/store/cart'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SheetTrigger } from '../ui/sheet'
@@ -7,14 +7,14 @@ import { QuantityControl } from '../quantity-control'
 import { ButtonRemoveItem } from './button-remove-item'
 
 type ProductCartProps = {
-  item: CartItem
+  item: CartProduct
 }
 
 export function CartProduct({ item }: ProductCartProps) {
   const formattedBasePrice = formatCurrency(Number(item.basePrice))
   const formattedTotalPrice = formatCurrency(item.totalPrice)
   const formattedTotalPriceWithQuantity = formatCurrency(
-    item.totalPrice * item.count,
+    item.totalPrice * item.quantity,
   )
 
   return (

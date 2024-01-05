@@ -20,11 +20,11 @@ const actionTypes = {
   REMOVE_TOAST: 'REMOVE_TOAST',
 } as const
 
-let count = 0
+let quantity = 0
 
 function genId() {
-  count = (count + 1) % Number.MAX_VALUE
-  return count.toString()
+  quantity = (quantity + 1) % Number.MAX_VALUE
+  return quantity.toString()
 }
 
 type ActionType = typeof actionTypes

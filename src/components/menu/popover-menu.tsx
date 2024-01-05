@@ -59,7 +59,9 @@ export function PopoverMenu() {
 
       <PopoverContent className="ml-4 mt-2 overflow-hidden p-0">
         <nav className="lg:hidden">
-          {/* <StatusAuthenticated /> */}
+          <StatusAuthenticated />
+
+          <div className="my-2 border-t" />
 
           {links.map((link, index) => (
             <PopoverClose asChild key={index}>

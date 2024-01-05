@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, useState } from 'react'
 import { Button } from './ui/button'
-import { Loader, Loader2 } from 'lucide-react'
+import { Loader } from 'lucide-react'
 
 export function Hydrate({ children }: { children: ReactNode }) {
   const [isMounted, setIsMounted] = useState(false)

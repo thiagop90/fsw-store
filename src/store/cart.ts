@@ -12,13 +12,13 @@ export const useOpenCart = create<ToggleCart>((set, get) => ({
   toggleCart: () => set({ isOpenCart: !get().isOpenCart }),
 }))
 
-export type CartItem = ProductWithTotalPrice & {
-  count: number
+export type CartProduct = ProductWithTotalPrice & {
+  quantity: number
 }
 
 type CartStore = {
-  cart: CartItem[]
-  count: () => number
+  cart: CartProduct[]
+  quantity: () => number
   subtotal: () => number
   totalPrice: () => number
   discount: () => number
@@ -33,25 +33,23 @@ export const useCartStore = create<CartStore>()(
     (set, get) => ({
       cart: [],
 
-      count: () => get().cart.reduce((prev, curr) => prev + curr.count, 0),
+      quantity: () =>
+        get().cart.reduce((total, product) => total + product.quantity, 0),
 
       subtotal: () =>
         get().cart.reduce(
-          (prev, curr) => prev + Number(curr.basePrice) * curr.count,
+          (total, product) =>
+            total + Number(product.basePrice) * product.quantity,
           0,
         ),
 
       totalPrice: () =>
         get().cart.reduce(
-          (prev, curr) => prev + Number(curr.totalPrice) * curr.count,
+          (total, product) => total + product.totalPrice * product.quantity,
           0,
         ),
 
-      discount: () => {
-        const sub = get().subtotal()
-        const total = get().totalPrice()
-        return sub - total
-      },
+      discount: () => get().subtotal() - get().totalPrice(),
 
       addToCart: (product: ProductWithTotalPrice) => {
         const updatedCart = updateCart(product, get().cart)
@@ -59,7 +57,7 @@ export const useCartStore = create<CartStore>()(
       },
 
       removeFromCartByQuantity: (productId: string) => {
-        const updatedCart = removeCartItem(productId, get().cart)
+        const updatedCart = removeCartProduct(productId, get().cart)
         set({ cart: updatedCart })
       },
 
@@ -77,30 +75,36 @@ export const useCartStore = create<CartStore>()(
 
 function updateCart(
   product: ProductWithTotalPrice,
-  cart: CartItem[],
-): CartItem[] {
+  cart: CartProduct[],
+): CartProduct[] {
   const updatedCart = [...cart]
   const existingIndex = updatedCart.findIndex((item) => item.id === product.id)
 
   if (existingIndex !== -1) {
     updatedCart[existingIndex] = {
       ...updatedCart[existingIndex],
-      count: updatedCart[existingIndex].count + 1,
+      quantity: updatedCart[existingIndex].quantity + 1,
     }
   } else {
-    updatedCart.push({ ...product, count: 1 })
+    updatedCart.push({ ...product, quantity: 1 })
   }
   return updatedCart
 }
 
-function removeCartItem(idProduct: string, cart: CartItem[]): CartItem[] {
+function removeCartProduct(
+  idProduct: string,
+  cart: CartProduct[],
+): CartProduct[] {
   const updatedCart = cart.map((item) =>
-    item.id === idProduct ? { ...item, count: item.count - 1 } : item,
+    item.id === idProduct ? { ...item, quantity: item.quantity - 1 } : item,
   )
-  return updatedCart.filter((item) => item.count > 0)
+  return updatedCart.filter((item) => item.quantity > 0)
 }
 
-function removeItemFromCart(idProduct: string, cart: CartItem[]): CartItem[] {
+function removeItemFromCart(
+  idProduct: string,
+  cart: CartProduct[],
+): CartProduct[] {
   const updatedCart = cart.filter((item) => item.id !== idProduct)
   return updatedCart
 }

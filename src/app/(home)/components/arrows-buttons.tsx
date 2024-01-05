@@ -29,7 +29,7 @@ export function PrevButton(props: ArrowButtonType) {
   const { ...restProps } = props
 
   return (
-    <div className="absolute inset-y-0 left-0 hidden items-center gap-2 px-4 md:flex">
+    <div className="absolute left-0 top-1/2 hidden -translate-y-1/2 px-4 md:flex md:items-center md:gap-2">
       <ArrowButton {...restProps}>
         <ArrowLeft className="h-4 w-4" />
       </ArrowButton>
@@ -41,7 +41,7 @@ export const NextButton = (props: ArrowButtonType) => {
   const { ...restProps } = props
 
   return (
-    <div className="absolute inset-y-0 right-0 hidden items-center gap-2 px-4 md:flex">
+    <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 px-4 md:flex md:items-center md:gap-2">
       <ArrowButton {...restProps}>
         <ArrowRight className="h-4 w-4" />
       </ArrowButton>
