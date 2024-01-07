@@ -1,13 +1,13 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { ProductWithTotalPrice } from '../helpers/products'
+import { ProductWithTotalPrice } from '../helpers/products-prices'
 
 type ToggleCart = {
   isOpenCart: boolean
   toggleCart: () => void
 }
 
-export const useOpenCart = create<ToggleCart>((set, get) => ({
+export const useOpenCart = create<ToggleCart>()((set, get) => ({
   isOpenCart: false,
   toggleCart: () => set({ isOpenCart: !get().isOpenCart }),
 }))

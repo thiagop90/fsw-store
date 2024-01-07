@@ -12,7 +12,7 @@ import useEmblaCarousel, {
   EmblaOptionsType,
 } from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
-import { computeProductTotalPrice } from '@/helpers/products'
+import { computeProductTotalPrice } from '@/helpers/products-prices'
 import { Product } from '@prisma/client'
 import { CardCarousel } from './card-carousel'
 import { cn } from '@/lib/utils'

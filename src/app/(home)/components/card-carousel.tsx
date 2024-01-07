@@ -1,12 +1,8 @@
-'use client'
-
-import { ProductWithTotalPrice, formatCurrency } from '@/helpers/products'
-import { Badge } from '@/components/ui/badge'
-import { ArrowDown, ShoppingCart } from 'lucide-react'
+import {
+  ProductWithTotalPrice,
+  usePricesFormatted,
+} from '@/helpers/products-prices'
 import Link from 'next/link'
-import { useCartStore } from '@/store/cart'
-import { Button } from '@/components/ui/button'
-import { useToast } from '@/components/ui/use-toast'
 import { ContainerImage } from '@/components/container-image'
 import { DiscountBadge } from '@/components/discount-badge'
 
@@ -15,19 +11,8 @@ type ProductItemProps = {
 }
 
 export function CardCarousel({ product }: ProductItemProps) {
-  const { addToCart } = useCartStore()
-  const { toast } = useToast()
-
-  const formattedBasePrice = formatCurrency(Number(product.basePrice))
-  const formattedTotalPrice = formatCurrency(product.totalPrice)
-
-  const handleAddToCart = () => {
-    addToCart(product)
-    toast({
-      title: 'Produto adicionado ao carrinho',
-      description: `${product.name} foi adicionado.`,
-    })
-  }
+  const { formattedBasePrice, formattedTotalPrice } =
+    usePricesFormatted(product)
 
   return (
     <li className="relative aspect-square h-[30vh] max-h-[275px] flex-none overflow-hidden rounded-lg border bg-card hover:border-primary">

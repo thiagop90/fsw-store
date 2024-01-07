@@ -3,8 +3,6 @@ import { prismaClient } from '@/lib/prisma'
 import { CarouselProducts } from './components/carousel-products'
 import { SectionTitle } from './components/section-title'
 import { EmblaOptionsType } from 'embla-carousel-react'
-import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
 import { LinkSeeAll } from './components/link-see-all'
 
 const OPTIONS: EmblaOptionsType = { dragFree: true }

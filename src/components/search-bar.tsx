@@ -72,18 +72,13 @@ export function SearchBar() {
           className="border-0 bg-transparent pl-0"
           ref={inputRef}
         />
-        {isOpen && (
-          <motion.button
-            initial={{ x: 100 }}
-            animate={{ x: 0, transition: { duration: 0.3 } }}
-            exit={{ x: 100 }}
-            type="button"
-            onClick={openSearchBar}
-            className="mr-3 text-sm font-medium text-primary md:hidden"
-          >
-            Cancel
-          </motion.button>
-        )}
+        <button
+          type="button"
+          onClick={openSearchBar}
+          className="mr-3 text-sm font-medium text-primary md:hidden"
+        >
+          Cancel
+        </button>
       </div>
     </form>
   )

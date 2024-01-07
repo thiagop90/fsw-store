@@ -33,7 +33,7 @@
   }
   
   body {
-    @apply h-full bg-background text-foreground antialiased;
+    @apply h-full bg-background text-foreground antialiased ;
   }
 
   input[type="search"]::-webkit-search-decoration,

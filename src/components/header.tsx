@@ -1,4 +1,4 @@
-import { SheetCart } from './cart/sheet-cart'
+import { Cart } from './cart/cart'
 import { PopoverMenu } from './menu/popover-menu'
 import { Hydrate } from './hydrate'
 import { SearchBar } from './search-bar'
@@ -16,8 +16,11 @@ export function Header() {
           <SearchBar />
         </div>
         <div className="flex justify-end gap-3 lg:w-1/3">
+          <div className="hidden flex-none md:block">
+            <PopoverMenu />
+          </div>
           <Hydrate>
-            <SheetCart />
+            <Cart />
           </Hydrate>
         </div>
       </div>

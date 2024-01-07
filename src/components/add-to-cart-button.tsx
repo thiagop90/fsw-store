@@ -3,7 +3,7 @@
 import { useCartStore, useOpenCart } from '@/store/cart'
 import { Button } from './ui/button'
 import { useState } from 'react'
-import { ProductWithTotalPrice } from '@/helpers/products'
+import { ProductWithTotalPrice } from '@/helpers/products-prices'
 import { Loader, ShoppingCart } from 'lucide-react'
 
 type AddToCartButtonType = {
@@ -21,7 +21,7 @@ export function AddToCartButton({ product }: AddToCartButtonType) {
       setLoading(false)
       addToCart(product)
       toggleCart()
-    }, 1100)
+    }, 900)
   }
 
   return (
@@ -30,7 +30,7 @@ export function AddToCartButton({ product }: AddToCartButtonType) {
       onClick={handleAddToCart}
       className="w-full gap-1 transition-all duration-300"
     >
-      {loading ? 'Adding...' : 'Add To Cart'}
+      {loading ? 'Adding...' : 'Add to Cart'}
       {loading ? (
         <Loader className="h-4 w-4 animate-spin" strokeWidth="2.5" />
       ) : (

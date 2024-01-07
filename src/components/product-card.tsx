@@ -1,6 +1,6 @@
 'use client'
 
-import { ProductWithTotalPrice, formatCurrency } from '@/helpers/products'
+import { ProductWithTotalPrice, formatCurrency } from '@/helpers/products-prices'
 import Link from 'next/link'
 import { ContainerImage } from '@/components/container-image'
 import { DiscountBadge } from './discount-badge'

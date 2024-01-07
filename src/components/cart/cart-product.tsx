@@ -1,28 +1,30 @@
-import { CartProduct } from '@/store/cart'
+import { CartProduct, useCartStore } from '@/store/cart'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SheetTrigger } from '../ui/sheet'
-import { formatCurrency } from '@/helpers/products'
-import { QuantityControl } from '../quantity-control'
-import { ButtonRemoveItem } from './button-remove-item'
+import { QuantityControl } from './quantity-control'
+import { usePricesFormatted } from '@/helpers/products-prices'
 
-type ProductCartProps = {
-  item: CartProduct
+type CartProductType = {
+  product: CartProduct
 }
 
-export function CartProduct({ item }: ProductCartProps) {
-  const formattedBasePrice = formatCurrency(Number(item.basePrice))
-  const formattedTotalPrice = formatCurrency(item.totalPrice)
-  const formattedTotalPriceWithQuantity = formatCurrency(
-    item.totalPrice * item.quantity,
-  )
+export function CartProduct({ product }: CartProductType) {
+  const { removeItemFromCart } = useCartStore()
+  const handleRemoveCartProduct = () => removeItemFromCart(product.id)
+
+  const {
+    formattedBasePrice,
+    formattedTotalPrice,
+    formattedTotalPriceWithDiscount,
+  } = usePricesFormatted(product)
 
   return (
     <li className="flex border-b py-6 last:border-0 ">
       <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border bg-background p-1">
         <Image
-          src={item.imageUrls[0]}
-          alt={item.name}
+          src={product.imageUrls[0]}
+          alt={product.name}
           width={0}
           height={0}
           sizes="100vw"
@@ -33,14 +35,14 @@ export function CartProduct({ item }: ProductCartProps) {
         <div>
           <div className="flex justify-between font-medium">
             <SheetTrigger asChild>
-              <Link href={`/product/${item.slug}`} className="">
-                {item.name}
+              <Link href={`/product/${product.slug}`} className="">
+                {product.name}
               </Link>
             </SheetTrigger>
-            <p className="ml-2">{formattedTotalPriceWithQuantity}</p>
+            <p className="ml-2">{formattedTotalPriceWithDiscount}</p>
           </div>
           <div className="mt-0.5 flex items-center gap-1 text-sm">
-            {item.discountPercentage > 0 ? (
+            {product.discountPercentage > 0 ? (
               <>
                 <p>{formattedTotalPrice}</p>
                 <p className="text-xs text-muted-foreground line-through">
@@ -53,8 +55,13 @@ export function CartProduct({ item }: ProductCartProps) {
           </div>
         </div>
         <div className="flex flex-1 items-end justify-between">
-          <ButtonRemoveItem item={item} />
-          <QuantityControl item={item} />
+          <button
+            onClick={handleRemoveCartProduct}
+            className="font-medium text-primary hover:underline"
+          >
+            Remove
+          </button>
+          <QuantityControl product={product} />
         </div>
       </div>
     </li>

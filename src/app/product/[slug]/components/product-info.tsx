@@ -1,6 +1,6 @@
 import { AddToCartButton } from '@/components/add-to-cart-button'
 import { DiscountBadge } from '@/components/discount-badge'
-import { ProductWithTotalPrice, formatCurrency } from '@/helpers/products'
+import { ProductWithTotalPrice, formatCurrency } from '@/helpers/products-prices'
 
 type ProductInfoType = {
   product: ProductWithTotalPrice

@@ -24,12 +24,14 @@ type OrderItemType = {
 export function OrderItem({ order }: OrderItemType) {
   const productText = order.orderProducts.length > 1 ? 'products' : 'product'
 
-  const createdAtGMT3 = DateTime.fromJSDate(order.createdAt, {
-    zone: 'America/Sao_Paulo',
+  const timeZone = 'America/Sao_Paulo'
+
+  const formattedCreatedAtWithTime = DateTime.fromJSDate(order.createdAt, {
+    zone: timeZone,
   }).toFormat("dd/MM/y 'at' HH:mm")
 
-  const createdAtDate = DateTime.fromJSDate(order.createdAt, {
-    zone: 'America/Sao_Paulo',
+  const formattedCreatedAtDateOnly = DateTime.fromJSDate(order.createdAt, {
+    zone: timeZone,
   }).toFormat('dd/MM/y')
 
   return (
@@ -42,7 +44,7 @@ export function OrderItem({ order }: OrderItemType) {
                 Order with {order.orderProducts.length} {productText}
               </p>
               <span className="text-sm text-muted-foreground">
-                Held in {createdAtGMT3}
+                Held in {formattedCreatedAtWithTime}
               </span>
             </div>
           </AccordionTrigger>
@@ -57,7 +59,9 @@ export function OrderItem({ order }: OrderItemType) {
 
                 <div>
                   <p className="font-semibold">Date</p>
-                  <p className="text-muted-foreground">{createdAtDate}</p>
+                  <p className="text-muted-foreground">
+                    {formattedCreatedAtDateOnly}
+                  </p>
                 </div>
 
                 <div>
