@@ -1,14 +1,17 @@
 import { AddToCartButton } from '@/components/add-to-cart-button'
 import { DiscountBadge } from '@/components/discount-badge'
-import { ProductWithTotalPrice, formatCurrency } from '@/helpers/products-prices'
+import {
+  ProductWithTotalPrice,
+  usePricesFormatted,
+} from '@/helpers/products-prices'
 
 type ProductInfoType = {
   product: ProductWithTotalPrice
 }
 
 export function ProductInfo({ product }: ProductInfoType) {
-  const formattedBasePrice = formatCurrency(Number(product.basePrice))
-  const formattedTotalPrice = formatCurrency(Number(product.totalPrice))
+  const { formattedBasePrice, formattedTotalPrice } =
+    usePricesFormatted(product)
 
   const truncatedDescription = `${product.description.slice(0, 376)}`
 

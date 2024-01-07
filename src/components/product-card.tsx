@@ -1,6 +1,7 @@
-'use client'
-
-import { ProductWithTotalPrice, formatCurrency } from '@/helpers/products-prices'
+import {
+  ProductWithTotalPrice,
+  usePricesFormatted,
+} from '@/helpers/products-prices'
 import Link from 'next/link'
 import { ContainerImage } from '@/components/container-image'
 import { DiscountBadge } from './discount-badge'
@@ -11,8 +12,8 @@ type ProductItemProps = {
 }
 
 export function ProductCard({ product }: ProductItemProps) {
-  const formattedBasePrice = formatCurrency(Number(product.basePrice))
-  const formattedTotalPrice = formatCurrency(product.totalPrice)
+  const { formattedBasePrice, formattedTotalPrice } =
+    usePricesFormatted(product)
 
   return (
     <li className="group relative animate-fadeIn overflow-hidden border-b border-r bg-card transition-opacity">

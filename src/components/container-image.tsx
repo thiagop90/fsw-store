@@ -1,4 +1,5 @@
-import { Product } from '@prisma/client'
+'use client'
+
 import { Loader } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
