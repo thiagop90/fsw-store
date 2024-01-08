@@ -40,7 +40,7 @@ export function StatusAuthenticated() {
 
           <button
             onClick={handleLoginClick}
-            className="flex w-full items-center justify-start gap-4 bg-background p-4"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-background p-4 transition hover:bg-accent"
           >
             <Image
               src="/google-logo.svg"
@@ -82,9 +82,10 @@ export function StatusAuthenticated() {
             <Link
               href="/orders"
               className={cn(
-                'flex w-full items-center gap-4 p-4 text-muted-foreground hover:bg-background',
+                'flex w-full items-center gap-4 rounded-lg p-4 text-muted-foreground hover:bg-background',
                 {
-                  'pointer-events-none text-foreground': pathname === '/orders',
+                  'pointer-events-none bg-background text-foreground':
+                    pathname === '/orders',
                 },
               )}
             >
@@ -94,7 +95,7 @@ export function StatusAuthenticated() {
           </PopoverClose>
           <button
             onClick={handleLogoutClick}
-            className="flex w-full items-center gap-4 p-4 text-red-400 hover:bg-background"
+            className="flex w-full items-center gap-4 rounded-lg p-4 text-red-400 hover:bg-background"
           >
             <LogOut className="h-5 w-5" strokeWidth={1.75} />
             Log out of account

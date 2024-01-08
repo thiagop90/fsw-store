@@ -1,4 +1,4 @@
-import { usePricesFormatted } from '@/helpers/products-prices'
+import { useCartPricesFormatted } from '@/helpers/cart-prices-formatted'
 
 type SummaryItemType = {
   label: string
@@ -19,7 +19,7 @@ export function CartSummary() {
     formattedDiscount,
     formattedSubtotal,
     formattedTotalPriceWithDiscount,
-  } = usePricesFormatted()
+  } = useCartPricesFormatted()
 
   return (
     <div className="flex flex-col border-t px-6 py-4">

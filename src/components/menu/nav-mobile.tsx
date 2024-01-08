@@ -37,9 +37,10 @@ export function NavMobile() {
         <PopoverClose asChild key={index}>
           <Link
             className={cn(
-              'flex w-full items-center gap-4 p-4 text-muted-foreground hover:bg-background',
+              'flex w-full items-center gap-4 rounded-lg p-4 text-muted-foreground hover:bg-background',
               {
-                'pointer-events-none text-foreground': pathname === link.href,
+                'pointer-events-none bg-background text-foreground':
+                  pathname === link.href,
               },
             )}
             href={link.href}

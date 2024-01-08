@@ -3,7 +3,7 @@
 import { useCartStore, useOpenCart } from '@/store/cart'
 import { Button } from './ui/button'
 import { useState } from 'react'
-import { ProductWithTotalPrice } from '@/helpers/products-prices'
+import { ProductWithTotalPrice } from '@/helpers/compute-price'
 import { Loader, ShoppingCart } from 'lucide-react'
 
 type AddToCartButtonType = {

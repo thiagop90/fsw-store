@@ -35,7 +35,7 @@ export function PopoverMenu() {
         <User className="hidden h-5 w-5 md:block" />
       </PopoverTrigger>
 
-      <PopoverContent className="ml-4 mt-2 overflow-hidden p-0 md:ml-0 md:mr-4">
+      <PopoverContent className="ml-4 mt-2 overflow-hidden p-2 md:ml-0 md:mr-4">
         <StatusAuthenticated />
         <NavMobile />
       </PopoverContent>

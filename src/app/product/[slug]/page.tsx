@@ -1,6 +1,6 @@
 import { prismaClient } from '@/lib/prisma'
 import { CarouselImages } from './components/carousel-images'
-import { computeProductTotalPrice } from '@/helpers/products-prices'
+import { computeProductTotalPrice } from '@/helpers/compute-price'
 import { ProductInfo } from './components/product-info'
 import { CarouselProducts } from '@/app/(home)/components/carousel-products'
 

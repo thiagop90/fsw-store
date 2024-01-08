@@ -3,7 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { SheetTrigger } from '../ui/sheet'
 import { QuantityControl } from './quantity-control'
-import { usePricesFormatted } from '@/helpers/products-prices'
+import { useCartPricesFormatted } from '@/helpers/cart-prices-formatted'
+import { useProductPricesFormatted } from '@/helpers/product-prices-formatted'
 
 type CartProductType = {
   product: CartProduct
@@ -13,11 +14,9 @@ export function CartProduct({ product }: CartProductType) {
   const { removeItemFromCart } = useCartStore()
   const handleRemoveCartProduct = () => removeItemFromCart(product.id)
 
-  const {
-    formattedBasePrice,
-    formattedTotalPrice,
-    formattedTotalPriceWithDiscount,
-  } = usePricesFormatted(product)
+  const { formattedTotalPriceWithDiscount } = useCartPricesFormatted()
+  const { formattedBasePrice, formattedTotalPrice } =
+    useProductPricesFormatted(product)
 
   return (
     <li className="flex border-b py-6 last:border-0 ">

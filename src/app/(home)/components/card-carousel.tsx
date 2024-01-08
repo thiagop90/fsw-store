@@ -1,7 +1,5 @@
-import {
-  ProductWithTotalPrice,
-  usePricesFormatted,
-} from '@/helpers/products-prices'
+import { ProductWithTotalPrice } from '@/helpers/compute-price'
+import { useProductPricesFormatted } from '@/helpers/product-prices-formatted'
 import Link from 'next/link'
 import { ContainerImage } from '@/components/container-image'
 import { DiscountBadge } from '@/components/discount-badge'
@@ -12,7 +10,7 @@ type ProductItemProps = {
 
 export function CardCarousel({ product }: ProductItemProps) {
   const { formattedBasePrice, formattedTotalPrice } =
-    usePricesFormatted(product)
+    useProductPricesFormatted(product)
 
   return (
     <li className="relative aspect-square h-[30vh] max-h-[275px] flex-none overflow-hidden rounded-lg border bg-card hover:border-primary">

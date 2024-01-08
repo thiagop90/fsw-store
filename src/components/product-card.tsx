@@ -1,7 +1,5 @@
-import {
-  ProductWithTotalPrice,
-  usePricesFormatted,
-} from '@/helpers/products-prices'
+import { ProductWithTotalPrice } from '@/helpers/compute-price'
+import { useProductPricesFormatted } from '@/helpers/product-prices-formatted'
 import Link from 'next/link'
 import { ContainerImage } from '@/components/container-image'
 import { DiscountBadge } from './discount-badge'
@@ -13,7 +11,7 @@ type ProductItemProps = {
 
 export function ProductCard({ product }: ProductItemProps) {
   const { formattedBasePrice, formattedTotalPrice } =
-    usePricesFormatted(product)
+    useProductPricesFormatted(product)
 
   return (
     <li className="group relative animate-fadeIn overflow-hidden border-b border-r bg-card transition-opacity">

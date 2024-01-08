@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { ProductWithTotalPrice } from '../helpers/products-prices'
+import { ProductWithTotalPrice } from '../helpers/compute-price'
 
 type ToggleCart = {
   isOpenCart: boolean
